@@ -34,6 +34,11 @@ public class Panel {
     public int getWidth() {
         return panel[0].length;
     }
+
+    public String[] getWords() {
+        return words.keySet().toArray(new String[0]);
+    }
+
     protected void printWord(String key) {
         Word word = words.get(key);
         WordCharacter[] characters = word.getChars();
