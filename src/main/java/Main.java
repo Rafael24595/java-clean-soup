@@ -6,6 +6,7 @@ import receiver.strict.DisableStrictReceiver;
 import receiver.strict.IStrictReceiver;
 import receiver.word.DefaultNumberWordReceiver;
 import receiver.word.IWordsReceiver;
+import receiver.word.RAEWordReceiver;
 
 public class Main {
 
@@ -15,6 +16,7 @@ public class Main {
     }
 
     private static void load(){
+        DependencyContainer.addInstance(IWordsReceiver.class, new RAEWordReceiver(5));
         //DependencyContainer.addInstance(IWordsReceiver.class, new DefaultNumberWordReceiver());
         DependencyContainer.addInstance(IStrictReceiver.class, new DisableStrictReceiver());
     }

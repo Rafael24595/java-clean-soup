@@ -6,7 +6,7 @@ public class DefaultWordReceiver implements IWordsReceiver {
     protected final int MIN_ASCII = 65;
 
     @Override
-    public String[] getWords() {
+    public String[] getWords() throws Exception {
         return new String[]{
                 "Caligula",
                 "Maximo",
