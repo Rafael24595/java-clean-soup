@@ -88,8 +88,9 @@ public class Panel {
     private void setWord(String wordString) throws Exception {
         try {
             Word word = new Word(this, wordString);
-            this.words.put(wordString, word);
-            printWord(wordString);
+            String key = word.getWord();
+            this.words.put(key, word);
+            printWord(key);
         }catch (Exception e){
             if (this.strict)
                 throw e;

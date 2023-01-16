@@ -4,6 +4,8 @@ import entities.character.WordCharacter;
 import entities.character.WordCharacters;
 import entities.orientation.Orientation;
 
+import java.text.Normalizer;
+
 public class Word {
 
     private final int MAX_LOOPS = 5000;
@@ -15,10 +17,16 @@ public class Word {
 
     public Word(Panel panel, String word) throws Exception {
         this.panel = panel;
-        this.word = word.toUpperCase();
+        this.word = normalize(word);
 
-        this.orientation = new Orientation(word);
+        this.orientation = new Orientation(this.word);
         this.characters = defineCharacters();
+    }
+
+    private String normalize(String word) {
+        String normalizeWord = Normalizer.normalize(word, Normalizer.Form.NFKD);
+        normalizeWord = normalizeWord.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        return normalizeWord.toUpperCase();
     }
 
     public String getWord() {

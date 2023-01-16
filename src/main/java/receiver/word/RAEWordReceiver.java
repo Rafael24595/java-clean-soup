@@ -18,25 +18,26 @@ public class RAEWordReceiver extends DefaultWordReceiver {
     private final String WEB_QUERY = "m=random";
     private final String NODE_REFERENCE = ".f";
 
-    int wordsLength;
+    int listSize;
 
-    public RAEWordReceiver(int wordsLength) {
-        this.wordsLength = wordsLength;
+    public RAEWordReceiver(int listSize) {
+        super();
+        this.listSize = listSize;
     }
 
-    public int getWordsLength() {
-        return wordsLength;
+    public int getListSize() {
+        return listSize;
     }
 
-    public void setWordsLength(int wordsLength) {
-        this.wordsLength = wordsLength;
+    public void setListSize(int listSize) {
+        this.listSize = listSize;
     }
 
     @Override
     public String[] getWords() throws Exception {
         ArrayList<String> words = new ArrayList<>();
 
-        for (int i = 0; i < this.wordsLength; i++) {
+        for (int i = 0; i < this.listSize; i++) {
             String word = fetchRandomWord();
             words.add(word);
         }
