@@ -24,6 +24,14 @@ public class RAEWordReceiver extends DefaultWordReceiver {
         this.wordsLength = wordsLength;
     }
 
+    public int getWordsLength() {
+        return wordsLength;
+    }
+
+    public void setWordsLength(int wordsLength) {
+        this.wordsLength = wordsLength;
+    }
+
     @Override
     public String[] getWords() throws Exception {
         ArrayList<String> words = new ArrayList<>();
@@ -64,8 +72,10 @@ public class RAEWordReceiver extends DefaultWordReceiver {
     }
 
     private String cleanText(Node node) throws Exception {
-        if(node instanceof TextNode)
-            return ((TextNode) node).getWholeText().split(",")[0];
+        if(node instanceof TextNode){
+            String text = ((TextNode) node).getWholeText();
+            return text.split(",")[0];
+        }
         throw new Exception("[RAE_WORD] Cannot get text content of current HTML node.");
     }
 
