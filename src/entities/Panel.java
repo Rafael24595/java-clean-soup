@@ -14,7 +14,10 @@ public class Panel {
     private Character[][] panel;
     private HashMap<String, Word> words;
 
-    public Panel(Dimensions dimensions, String[] words) throws Exception {
+    private boolean strict;
+
+    public Panel(Dimensions dimensions, String[] words, boolean strict) throws Exception {
+        this.strict = strict;
         fillPanelEmpty(dimensions);
         fillWordsList(words);
         fillEmptyFields();
@@ -78,10 +81,19 @@ public class Panel {
     private void fillWordsList(String[] wordsList) throws Exception {
         this.words = new HashMap<>();
         for (String wordString: wordsList) {
+            setWord(wordString);
+        }
+    }
+
+    private void setWord(String wordString) throws Exception {
+        try {
             Word word = new Word(this, wordString);
             this.words.put(wordString, word);
-
             printWord(wordString);
+        }catch (Exception e){
+            if (this.strict)
+                throw e;
+            System.out.println(e.getMessage());
         }
     }
 

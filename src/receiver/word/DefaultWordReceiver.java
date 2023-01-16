@@ -2,8 +2,8 @@ package receiver.word;
 
 public class DefaultWordReceiver implements IWordsReceiver {
 
-    private final int MAX_ASCII = 91;
-    private final int MIN_ASCII = 65;
+    protected final int MAX_ASCII = 91;
+    protected final int MIN_ASCII = 65;
 
     @Override
     public String[] getWords() {
@@ -18,8 +18,18 @@ public class DefaultWordReceiver implements IWordsReceiver {
         };
     }
 
+    protected int getMaxAscii() {
+        return MAX_ASCII;
+    }
+
+    protected int getMinAscii() {
+        return MIN_ASCII;
+    }
+
     public char getRandomCharacter() {
-        return (char) (Math.random() * (MAX_ASCII - MIN_ASCII) + MIN_ASCII);
+        int maxAscii = getMaxAscii();
+        int minAscii = getMinAscii();
+        return (char) (Math.random() * (maxAscii - minAscii) + minAscii);
     }
 
 }
