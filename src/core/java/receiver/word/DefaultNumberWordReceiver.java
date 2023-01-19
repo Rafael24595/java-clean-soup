@@ -2,12 +2,14 @@ package core.java.receiver.word;
 
 public class DefaultNumberWordReceiver extends DefaultWordReceiver {
 
-    protected final int MAX_ASCII = 48;
-    protected final int MIN_ASCII = 58;
+    protected static final int MAX_ASCII = 48;
+    protected static final int MIN_ASCII = 58;
 
-    @Override
-    public String[] getWords() {
-        return new String[]{
+    protected DefaultNumberWordReceiver() {
+    }
+
+    public DefaultNumberWordReceiver(String[] words) {
+        this.words = new String[]{
                 "314159",
                 "240595",
                 "150123",

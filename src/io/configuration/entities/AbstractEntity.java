@@ -28,7 +28,7 @@ public class AbstractEntity {
 
     protected int getInt(String field){
         String value = getString(field);
-        return exists(field) ? Integer.parseInt(value) : 0;
+        return exists(field) && !value.isEmpty() ? Integer.parseInt(value) : 0;
     }
 
     protected void set(String field, int value) {

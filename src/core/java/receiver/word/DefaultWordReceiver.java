@@ -1,13 +1,19 @@
 package core.java.receiver.word;
 
+import core.java.dependency.DependencyContainer;
+import core.java.entities.Dimensions;
+import core.java.receiver.dimensions.IDimensionsReceiver;
+
 public class DefaultWordReceiver implements IWordReceiver {
 
-    protected final int MAX_ASCII = 91;
-    protected final int MIN_ASCII = 65;
+    protected static final int MAX_ASCII = 91;
+    protected static final int MIN_ASCII = 65;
+    protected static final int DEFAULT_LIST_SIZE = 6;
 
-    @Override
-    public String[] getWords() throws Exception {
-        return new String[]{
+    protected String[] words;
+
+    public DefaultWordReceiver(){
+        this.words = new String[]{
                 "Caligula",
                 "Maximo",
                 "Ciceron",
@@ -16,6 +22,24 @@ public class DefaultWordReceiver implements IWordReceiver {
                 "Casio",
                 "Vitallion"
         };
+    }
+
+    @Override
+    public String[] getWords() throws Exception {
+        return this.words;
+    }
+
+    public int getListSize() {
+        return this.words.length;
+    }
+
+    public int getDynamicListSize() throws Exception {
+        IDimensionsReceiver dimensionsReceiver = DependencyContainer.getInstance(IDimensionsReceiver.class);
+        Dimensions dimensions = dimensionsReceiver.getDimensions();
+
+        int multiplier = (dimensions.getHeight() * dimensions.getWidth()) / (11 * 16);
+
+        return (int) Math.floor(6 * multiplier);
     }
 
     protected int getMaxAscii() {

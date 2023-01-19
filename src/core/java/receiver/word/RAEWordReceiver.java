@@ -11,33 +11,32 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RAEWordReceiver extends DefaultWordReceiver {
+public class RAEWordReceiver extends CustomWordReceiver {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private final String WEB_DOMAIN = "https://dle.rae.es";
     private final String WEB_QUERY = "m=random";
     private final String NODE_REFERENCE = ".f";
 
-    int listSize;
+    public RAEWordReceiver() throws Exception {
+        this(false);
+    }
 
-    public RAEWordReceiver(Integer listSize) {
+    public RAEWordReceiver(Boolean dynamic) throws Exception {
         super();
-        this.listSize = listSize;
+        int listSize = (dynamic) ? getDynamicListSize() : DEFAULT_LIST_SIZE;
+        this.words = generateWords(listSize);
     }
 
-    public int getListSize() {
-        return listSize;
+    public RAEWordReceiver(Integer listSize) throws Exception {
+        super();
+        this.words = generateWords(listSize);
     }
 
-    public void setListSize(int listSize) {
-        this.listSize = listSize;
-    }
-
-    @Override
-    public String[] getWords() throws Exception {
+    public String[] generateWords(int listSize) throws Exception {
         ArrayList<String> words = new ArrayList<>();
 
-        for (int i = 0; i < this.listSize; i++) {
+        for (int i = 0; i < listSize; i++) {
             String word = fetchRandomWord();
             words.add(word);
         }

@@ -5,8 +5,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.util.ArrayList;
+
 public class XmlTools {
-    
+
+    private final static String STATUS = "status";
+    private final static String ENABLED = "enabled";
+    private final static String DISABLED = "disabled";
+
+    public static boolean getElementStatus(Element element) {
+        String status = element.getAttribute(STATUS);
+        return status.equals(ENABLED) || !status.equals(DISABLED);
+    }
+
     public static Element getTagElement(Document document, String tag) {
         return getTagElement(document.getDocumentElement(), tag);
     }
@@ -27,8 +38,16 @@ public class XmlTools {
     }
 
     public static Element getTagChild(Element element, String tag) {
-        NodeList children = element.getChildNodes();
+        Element child = null;
+        if(element != null){
+            NodeList children = element.getChildNodes();
+            child = findChild(children, tag);
+        }
 
+        return child;
+    }
+
+    private static Element findChild(NodeList children, String tag) {
         for (int i = 0; i < children.getLength(); i++) {
             Element child = getNodeElement(children.item(i));
             if(child != null &&child.getTagName().equalsIgnoreCase(tag))
@@ -38,12 +57,23 @@ public class XmlTools {
         return null;
     }
 
-    public static NodeList getTagsElements(Element element, String tag) {
-        return element.getElementsByTagName(tag);
+    public static ArrayList<Node> getTagsElements(Element element, String tag) {
+        ArrayList<Node> aList = new ArrayList<>();
+        if(element != null){
+            NodeList list = element.getElementsByTagName(tag);
+
+            for (int i = 0; i < list.getLength(); i++) {
+                aList.add(list.item(i));
+            }
+
+            return aList;
+        }
+
+        return aList;
     }
 
     private static Element getNodeElement(Node node ) {
-        if(node.getNodeType() == Node.ELEMENT_NODE){
+        if(node != null && node.getNodeType() == Node.ELEMENT_NODE){
             Element castedElement = (Element) node;
             return castedElement;
         }

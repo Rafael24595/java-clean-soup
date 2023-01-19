@@ -4,49 +4,39 @@ import java.util.ArrayList;
 
 public class CustomNumberWordReceiver extends DefaultNumberWordReceiver {
 
-    private static final int MIN_LENGTH_DEFAULT = 3;
+    private static final int MIN_DEFAULT = 3;
 
-    int listSize;
-    int length;
-    int min;
+    private int max;
+    private int min;
 
-    public CustomNumberWordReceiver(Integer listSize, Integer length) {
-        this(listSize, length, MIN_LENGTH_DEFAULT);
-    }
-
-    public CustomNumberWordReceiver(Integer listSize, Integer length, Integer min) {
+    public CustomNumberWordReceiver(Integer max, Integer min, Boolean dynamic) throws Exception {
         super();
-        this.listSize = listSize;
-        this.length = (length < 1) ? 1 : length;
-        this.min = (min > length) ? length : min;
+        int listSize = (dynamic) ? getDynamicListSize() : DEFAULT_LIST_SIZE;
+        this.max = (max < 1) ? 1 : max;
+        this.min = (min > max) ? max : min;
+        this.words = generateWords(listSize);
     }
 
-    public int getListSize() {
-        return listSize;
+    public CustomNumberWordReceiver(Integer listSize, Integer max) {
+        this(listSize, max, MIN_DEFAULT);
     }
 
-    public void setListSize(int listSize) {
-        this.listSize = listSize;
+    public CustomNumberWordReceiver(Integer listSize, Integer max, Integer min) {
+        super();
+        this.max = (max < 1) ? 1 : max;
+        this.min = (min > max) ? max : min;
+        this.words = generateWords(listSize);
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
+    public int getMax() {
+        return max;
     }
 
     public int getMin() {
         return min;
     }
 
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    @Override
-    public String[] getWords() {
+    public String[] generateWords(int listSize) {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < listSize; i++) {
             list.add(getRandomSeries());
@@ -64,7 +54,7 @@ public class CustomNumberWordReceiver extends DefaultNumberWordReceiver {
     }
 
     private int getRandomLength(){
-        return (int) (Math.random() * (length - min)) + min;
+        return (int) (Math.random() * (max - min)) + min;
     }
 
     private String getRandomNumber() {

@@ -1,13 +1,37 @@
 <clean_soup_configuration>
     <receivers>
-        <word_receiver>
-            <name>IWordsReceiver</name>
+        <dimensions_receiver>
+            <name>IDimensionsReceiver</name>
             <dependencies>
-                <dependency>
+                <dependency status="disabled">
+                    <name>RandomRectangleDimensionsReceiver</name>
+                    <class>core.java.receiver.dimensions.RandomRectangleDimensionsReceiver</class>
+                    <order>1</order>
+                    <parameters>
+                        <parameter>
+                            <name>Max</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>50</value>
+                        </parameter>
+                        <parameter>
+                            <name>Min</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>50</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+            </dependencies>
+        </dimensions_receiver>
+        <word_receiver>
+            <name>IWordReceiver</name>
+            <dependencies>
+                <dependency status="enabled">
                     <name>RAEWordReceiver</name>
                     <class>core.java.receiver.word.RAEWordReceiver</class>
                     <order>1</order>
-                    <quantity>5</quantity>
+                    <quantity>1</quantity>
                     <parameters>
                         <parameter>
                             <name>listSize</name>
@@ -17,11 +41,11 @@
                         </parameter>
                     </parameters>
                 </dependency>
-                <dependency>
+                <dependency status="disabled">
                     <name>CustomNumberWordReceiver</name>
                     <class>core.java.receiver.word.CustomNumberWordReceiver</class>
                     <order>2</order>
-                    <quantity>2</quantity>
+                    <quantity>1</quantity>
                     <parameters>
                         <parameter>
                             <name>listSize</name>
@@ -42,7 +66,7 @@
         <strict_receiver>
             <name>IStrictReceiver</name>
             <dependencies>
-                <dependency>
+                <dependency status="enabled">
                     <name>DisableStrictReceiver</name>
                     <class>core.java.receiver.strict.DisableStrictReceiver</class>
                     <order>1</order>
@@ -51,5 +75,10 @@
                 </dependency>
             </dependencies>
         </strict_receiver>
+        <orientation_receiver>
+            <name>IOrientationReceiver</name>
+            <dependencies>
+            </dependencies>
+        </orientation_receiver>
     </receivers>
 </clean_soup_configuration>

@@ -2,32 +2,39 @@ package core.java;
 
 import core.java.entities.Dimensions;
 import core.java.entities.Panel;
+import core.java.tools.Tools;
 import io.configuration.Configuration;
-import org.xml.sax.SAXException;
 import core.java.dependency.DependencyContainer;
 import core.java.print.IPrint;
 import core.java.receiver.dimensions.IDimensionsReceiver;
 import core.java.receiver.strict.IStrictReceiver;
 import core.java.receiver.word.IWordReceiver;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
         load();
-        //start();
     }
 
-    private static void load() throws IOException, ParserConfigurationException, SAXException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
+    private static void load() throws Exception {
         Configuration.initialize();
         IWordReceiver[] iwr = Configuration.getWordReceiverInstances();
-        IStrictReceiver[] isr = Configuration.getStrictReceiverInstances();
-        //DependencyContainer.addInstance(IWordsReceiver.class, new RAEWordReceiver(5));
-        //DependencyContainer.addInstance(IWordsReceiver.class, new DefaultNumberWordReceiver());
-        //DependencyContainer.addInstance(IStrictReceiver.class, new DisableStrictReceiver());
+        IDimensionsReceiver[] idr = Configuration.getDimensionsReceiverInstances();
+        IStrictReceiver isr = Configuration.getStrictReceiverInstance();
+        IPrint icr = Configuration.getPrinterInstance();
+
+        DependencyContainer.addInstance(IStrictReceiver.class, isr);
+        DependencyContainer.addInstance(IPrint.class, icr);
+
+        for (int i = 0; i < iwr.length; i++) {
+            IWordReceiver wordReceiver = iwr[i];
+            IDimensionsReceiver dimensionsReceiver = Tools.getPosition(idr, i);
+
+            DependencyContainer.addInstance(IDimensionsReceiver.class, dimensionsReceiver);
+            DependencyContainer.addInstance(IWordReceiver.class, wordReceiver);
+
+            start();
+        }
     }
 
     private static void start() throws Exception {

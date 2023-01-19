@@ -18,6 +18,7 @@ abstract class AbstractReceiver<T> extends AbstractEntity implements IReceiver {
     public static final String DEPENDENCY = "dependency";
     public static final String NAME = "name";
     public static final String CLASS = "class";
+    public static final String ORDER = "order";
     public static final String PARAMETERS = "parameters";
 
     protected AbstractReceiver() {
@@ -38,6 +39,22 @@ abstract class AbstractReceiver<T> extends AbstractEntity implements IReceiver {
 
     public void setClassPath(String clazz) {
         set(CLASS, clazz);
+    }
+
+    public int getOrder() {
+        return getInt(ORDER);
+    }
+
+    public int getQuantity() {
+        return 1;
+    }
+
+    public void setOrder(int order){
+        set(ORDER, order);
+    }
+
+    public void setOrder(String order){
+        set(ORDER, order);
     }
 
     public IParameter getParameter(String field) {
@@ -96,10 +113,28 @@ abstract class AbstractReceiver<T> extends AbstractEntity implements IReceiver {
     public IReceiver build(Element element){
         String name = getTagText(element, NAME);
         String clazz = getTagText(element, CLASS);
+        String order = getTagText(element, ORDER);
 
         setName(name);
         setClassPath(clazz);
+        setOrder(order);
         return this;
+    }
+
+    public String getKey() {
+        String name = getName();
+        int order = getOrder();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+
+        if(order != 0){
+            sb.append('#');
+            sb.append(order);
+        }
+
+        return sb.toString();
+
     }
 
 }

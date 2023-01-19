@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
 
 import static io.configuration.tools.XmlTools.*;
 
-class WordReceiver extends AbstractReceiver<WordReceiver> implements IWordReceiver {
+class WordReceiver extends AbstractReceiver implements IWordReceiver {
 
     static final String WORD_RECEIVER = "word_receiver";
     static final String QUANTITY = "quantity";
