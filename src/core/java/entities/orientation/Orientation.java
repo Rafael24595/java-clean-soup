@@ -3,7 +3,7 @@ package core.java.entities.orientation;
 import core.java.dependency.DependencyContainer;
 import core.java.receiver.orientation.IOrientationReceiver;
 
-import static entities.orientation.KOrientation.*;
+import static core.java.entities.orientation.KOrientation.*;
 
 public class Orientation {
 
@@ -14,12 +14,12 @@ public class Orientation {
     private String[] orientations;
 
     private String word;
-    private String orientation;
+    private String code;
 
     public Orientation(String word) throws Exception {
         this.word = word;
         this.orientations = generateOrientations();
-        this.orientation = generateRandomOrientation();
+        this.code = generateRandomOrientation();
     }
 
     private String[] generateOrientations() throws Exception {
@@ -41,7 +41,7 @@ public class Orientation {
     }
 
     public int getHorizontalMultiplier() throws Exception {
-        switch (orientation) {
+        switch (code) {
             case DIAGONAL_SOUTH_WEST:
             case HORIZONTAL_WEST:
             case DIAGONAL_NORTH_WEST:
@@ -59,7 +59,7 @@ public class Orientation {
     }
 
     public int getVerticalMultiplier() throws Exception {
-        switch (orientation) {
+        switch (code) {
             case VERTICAL_NORTH:
             case DIAGONAL_NORTH_EAST:
             case DIAGONAL_NORTH_WEST:

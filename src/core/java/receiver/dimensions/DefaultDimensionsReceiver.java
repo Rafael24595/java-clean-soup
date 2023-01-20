@@ -4,9 +4,12 @@ import core.java.entities.Dimensions;
 
 public class DefaultDimensionsReceiver implements IDimensionsReceiver {
 
+    public static final int DEFAULT_HEIGHT = 11;
+    public static final int DEFAULT_WIDTH = 16;
+
     @Override
     public Dimensions getDimensions() {
-        return new Dimensions(11, 16);
+        return new Dimensions(DEFAULT_HEIGHT, DEFAULT_WIDTH);
     }
 
 }

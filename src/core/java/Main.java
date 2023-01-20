@@ -1,6 +1,5 @@
 package core.java;
 
-import core.java.entities.Dimensions;
 import core.java.entities.Panel;
 import core.java.tools.Tools;
 import io.configuration.Configuration;
@@ -13,10 +12,10 @@ import core.java.receiver.word.IWordReceiver;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        load();
+        start();
     }
 
-    private static void load() throws Exception {
+    private static void start() throws Exception {
         Configuration.initialize();
         IWordReceiver[] iwr = Configuration.getWordReceiverInstances();
         IDimensionsReceiver[] idr = Configuration.getDimensionsReceiverInstances();
@@ -33,21 +32,17 @@ public class Main {
             DependencyContainer.addInstance(IDimensionsReceiver.class, dimensionsReceiver);
             DependencyContainer.addInstance(IWordReceiver.class, wordReceiver);
 
-            start();
+            launch();
         }
     }
 
-    private static void start() throws Exception {
+    private static void launch() throws Exception {
         IDimensionsReceiver dimensionsReceiver = DependencyContainer.getInstance(IDimensionsReceiver.class);
         IWordReceiver wordsReceiver = DependencyContainer.getInstance(IWordReceiver.class);
         IPrint printer = DependencyContainer.getInstance(IPrint.class);
         IStrictReceiver strictReceiver = DependencyContainer.getInstance(IStrictReceiver.class);
 
-        Dimensions dimensions = dimensionsReceiver.getDimensions();
-        String[] words = wordsReceiver.getWords();
-        Boolean strict = strictReceiver.getStrict();
-
-        Panel panel = new Panel(dimensions, words, strict);
+        Panel panel = new Panel(dimensionsReceiver, wordsReceiver, strictReceiver);
         panel.print(printer);
     }
 

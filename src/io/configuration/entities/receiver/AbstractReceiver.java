@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import core.java.receiver.word.IWordReceiver;
 import io.configuration.entities.parameter.interfaces.IParameter;
 import io.configuration.entities.receiver.interfaces.IReceiver;
 import org.w3c.dom.Element;
 import io.configuration.entities.AbstractEntity;
 import static io.configuration.tools.XmlTools.*;
 
-abstract class AbstractReceiver<T> extends AbstractEntity implements IReceiver {
+abstract class AbstractReceiver extends AbstractEntity implements IReceiver {
 
     public static final String DEPENDENCY = "dependency";
     public static final String NAME = "name";
@@ -78,8 +77,7 @@ abstract class AbstractReceiver<T> extends AbstractEntity implements IReceiver {
         Object[] args = getArgs();
 
         Class<core.java.receiver.IReceiver> clazz = (Class<core.java.receiver.IReceiver>) Class.forName(getClassPath());
-        core.java.receiver.IReceiver instance = clazz.getDeclaredConstructor(types).newInstance(args);
-        return instance;
+        return clazz.getDeclaredConstructor(types).newInstance(args);
     }
 
     private Class<?>[] getArgsType() {

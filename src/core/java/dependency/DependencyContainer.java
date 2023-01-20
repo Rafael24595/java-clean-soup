@@ -19,12 +19,20 @@ public class DependencyContainer {
     }
 
     public static <T extends IProjectInterface> T getInstance(Class<T> interfaze, Object ...args) throws Exception {
+        return getInstance(interfaze, true, args);
+    }
+
+    public static <T extends IProjectInterface> T getInstanceDefined(Class<T> interfaze, Object ...args) throws Exception {
+        return getInstance(interfaze, false, args);
+    }
+
+    private static <T extends IProjectInterface> T getInstance(Class<T> interfaze, boolean def, Object ...args) throws Exception {
         if(instance == null)
             instance = new DependencyContainer();
 
         T dependency = (T) instance.container.get(interfaze.getName());
 
-        if(dependency == null){
+        if(def && dependency == null){
             dependency = getDefaultInstance(interfaze);
             addInstance(interfaze, dependency);
         }
@@ -40,7 +48,7 @@ public class DependencyContainer {
         } catch (NoSuchFieldException e) {
             throw new Exception("[DEPENDENCY_EXCEPTION]: Default instance for interface \"" + interfaze.getName() + "\" is undefined.");
         } catch (Exception e){
-            throw new Exception("[DEPENDENCY_EXCEPTION]: Cannot instance default class \"" + clazzDefault.getName() + "\".", e);
+            throw new Exception("[DEPENDENCY_EXCEPTION]: Cannot instance default class of \"" + interfaze.getName() + "\" interface.", e);
         }
     }
 

@@ -14,6 +14,7 @@ class WordReceiver extends AbstractReceiver implements IWordReceiver {
         super();
     }
 
+    @Override
     public int getQuantity() {
         return getInt(QUANTITY);
     }

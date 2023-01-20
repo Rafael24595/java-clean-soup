@@ -5,10 +5,7 @@ public class DefaultNumberWordReceiver extends DefaultWordReceiver {
     protected static final int MAX_ASCII = 48;
     protected static final int MIN_ASCII = 58;
 
-    protected DefaultNumberWordReceiver() {
-    }
-
-    public DefaultNumberWordReceiver(String[] words) {
+    public DefaultNumberWordReceiver() {
         this.words = new String[]{
                 "314159",
                 "240595",

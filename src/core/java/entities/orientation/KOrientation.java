@@ -1,6 +1,9 @@
-package entities.orientation;
+package core.java.entities.orientation;
 
 public class KOrientation {
+
+    private KOrientation(){
+    }
 
     public static final String VERTICAL_SOUTH = "NS";
     public static final String VERTICAL_NORTH = "SN";

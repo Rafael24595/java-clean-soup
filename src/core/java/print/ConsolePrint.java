@@ -4,8 +4,6 @@ import core.java.entities.Panel;
 
 public class ConsolePrint implements IPrint {
 
-    public ConsolePrint() {
-    }
     @Override
     public void print(Panel panel) {
         printPanel(panel);
@@ -34,7 +32,6 @@ public class ConsolePrint implements IPrint {
     }
 
     private void printWordList(Panel panel) {
-
         System.out.println();
         System.out.println("Word list: ");
 

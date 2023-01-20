@@ -20,7 +20,7 @@ public class WordCharacters {
     private ArrayList<WordCharacter> generateCharsPosition(Panel panel, Position startPosition) throws Exception {
         ArrayList<WordCharacter> charList = new ArrayList<>();
         Orientation orientation = word.getOrientation();
-        String stringWord = word.getWord();
+        String stringWord = word.getString();
 
         for (int i = 0; i < stringWord.length(); i++) {
             Character character = stringWord.charAt(i);

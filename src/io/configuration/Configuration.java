@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-
 public class Configuration {
 
     private static final String DEFAULT_PATH_CONFIG = "src/io/configuration/resources/Configuration.xml";

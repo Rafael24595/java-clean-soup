@@ -1,9 +1,10 @@
 package core.java.entities;
 
-import core.java.print.IPrint;
-import core.java.receiver.word.IWordReceiver;
-import core.java.dependency.DependencyContainer;
 import core.java.entities.character.WordCharacter;
+import core.java.print.IPrint;
+import core.java.receiver.dimensions.IDimensionsReceiver;
+import core.java.receiver.strict.IStrictReceiver;
+import core.java.receiver.word.IWordReceiver;
 
 import java.util.HashMap;
 
@@ -11,31 +12,36 @@ public class Panel {
 
     public static final char EMPTY_FIELD = '#';
 
-    private Character[][] panel;
+    private Character[][] table;
     private HashMap<String, Word> words;
 
-    private boolean strict;
+    private IDimensionsReceiver dimensionsReceiver;
+    private IWordReceiver wordsReceiver;
+    private IStrictReceiver strictReceiver;
 
-    public Panel(Dimensions dimensions, String[] words, boolean strict) throws Exception {
-        this.strict = strict;
-        fillPanelEmpty(dimensions);
-        fillWordsList(words);
+    public Panel(IDimensionsReceiver dimensionsReceiver, IWordReceiver wordsReceiver, IStrictReceiver strictReceiver) throws Exception {
+        this.dimensionsReceiver = dimensionsReceiver;
+        this.wordsReceiver = wordsReceiver;
+        this.strictReceiver = strictReceiver;
+
+        fillPanelEmpty();
+        fillWordsList();
         fillEmptyFields();
     }
 
     public Character[] getColumn(int i) {
-        return panel[i];
+        return table[i];
     }
 
     public char getField(int x, int y) {
-        return panel[y][x];
+        return table[y][x];
     }
     public int getHeight() {
-        return panel.length;
+        return table.length;
     }
 
     public int getWidth() {
-        return panel[0].length;
+        return table[0].length;
     }
 
     public String[] getWords() {
@@ -58,16 +64,17 @@ public class Panel {
     }
 
     private void setCharacter(int x, int y, char character) {
-        this.panel[y][x] = character;
+        this.table[y][x] = character;
     }
 
-    private void fillPanelEmpty(Dimensions dimensions){
+    private void fillPanelEmpty(){
+        Dimensions dimensions = this.dimensionsReceiver.getDimensions();
         int height = dimensions.getHeight();
         int width = dimensions.getWidth();
 
-        this.panel = new java.lang.Character[height][width];
-        for (int i = 0; i < panel.length; i++) {
-            Character[] column = panel[i];
+        this.table = new java.lang.Character[height][width];
+        for (int i = 0; i < table.length; i++) {
+            Character[] column = table[i];
             fillColumnEmpty(column);
         }
     }
@@ -78,7 +85,8 @@ public class Panel {
         }
     }
 
-    private void fillWordsList(String[] wordsList) throws Exception {
+    private void fillWordsList() throws Exception {
+        String[] wordsList = this.wordsReceiver.getWords();
         this.words = new HashMap<>();
         for (String wordString: wordsList) {
             setWord(wordString);
@@ -86,26 +94,27 @@ public class Panel {
     }
 
     private void setWord(String wordString) throws Exception {
+        boolean strict = this.strictReceiver.getStrict();
         try {
             Word word = new Word(this, wordString);
-            String key = word.getWord();
+            String key = word.getString();
             this.words.put(key, word);
             printWord(key);
         }catch (Exception e){
-            if (this.strict)
+            if (strict)
                 throw e;
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
-    private void fillEmptyFields() throws Exception {
-        for (int i = 0; i < panel.length; i++) {
-            Character[] column = panel[i];
+    private void fillEmptyFields() {
+        for (int i = 0; i < table.length; i++) {
+            Character[] column = table[i];
             fillEmptyColumn(column);
         }
     }
 
-    private void fillEmptyColumn(Character[] column) throws Exception {
+    private void fillEmptyColumn(Character[] column) {
         for (int i = 0; i < column.length; i++) {
             Character character = column[i];
             if(character.equals(EMPTY_FIELD))
@@ -113,9 +122,8 @@ public class Panel {
         }
     }
 
-    private char getRandomCharacter() throws Exception {
-        IWordReceiver receiver = DependencyContainer.getInstance(IWordReceiver.class);
-        return receiver.getRandomCharacter();
+    private char getRandomCharacter() {
+        return this.wordsReceiver.getRandomCharacter();
     }
 
     public void print(IPrint printer) {

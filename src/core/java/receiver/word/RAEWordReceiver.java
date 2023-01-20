@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class RAEWordReceiver extends CustomWordReceiver {
 
-    private final String USER_AGENT = "Mozilla/5.0";
-    private final String WEB_DOMAIN = "https://dle.rae.es";
-    private final String WEB_QUERY = "m=random";
-    private final String NODE_REFERENCE = ".f";
+    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String WEB_DOMAIN = "https://dle.rae.es";
+    private static final String WEB_QUERY = "m=random";
+    private static final String NODE_REFERENCE = ".f";
 
     public RAEWordReceiver() throws Exception {
         this(false);
@@ -24,7 +24,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
 
     public RAEWordReceiver(Boolean dynamic) throws Exception {
         super();
-        int listSize = (dynamic) ? getDynamicListSize() : DEFAULT_LIST_SIZE;
+        int listSize = dynamic ? getDynamicListSize() : DEFAULT_LIST_SIZE;
         this.words = generateWords(listSize);
     }
 

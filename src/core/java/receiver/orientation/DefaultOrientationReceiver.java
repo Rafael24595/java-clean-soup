@@ -1,6 +1,6 @@
 package core.java.receiver.orientation;
 
-import static entities.orientation.KOrientation.*;
+import static core.java.entities.orientation.KOrientation.*;
 
 public class DefaultOrientationReceiver implements IOrientationReceiver{
 

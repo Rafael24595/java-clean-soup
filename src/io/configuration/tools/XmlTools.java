@@ -6,12 +6,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class XmlTools {
 
-    private final static String STATUS = "status";
-    private final static String ENABLED = "enabled";
-    private final static String DISABLED = "disabled";
+    private XmlTools(){
+    }
+
+    private static final String STATUS = "status";
+    private static final String ENABLED = "enabled";
+    private static final String DISABLED = "disabled";
 
     public static boolean getElementStatus(Element element) {
         String status = element.getAttribute(STATUS);
@@ -57,7 +61,7 @@ public class XmlTools {
         return null;
     }
 
-    public static ArrayList<Node> getTagsElements(Element element, String tag) {
+    public static List<Node> getTagsElements(Element element, String tag) {
         ArrayList<Node> aList = new ArrayList<>();
         if(element != null){
             NodeList list = element.getElementsByTagName(tag);
@@ -74,8 +78,7 @@ public class XmlTools {
 
     private static Element getNodeElement(Node node ) {
         if(node != null && node.getNodeType() == Node.ELEMENT_NODE){
-            Element castedElement = (Element) node;
-            return castedElement;
+            return (Element) node;
         }
         return null;
     }

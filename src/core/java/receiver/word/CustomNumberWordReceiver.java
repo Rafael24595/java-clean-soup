@@ -1,5 +1,7 @@
 package core.java.receiver.word;
 
+import core.java.tools.Random;
+
 import java.util.ArrayList;
 
 public class CustomNumberWordReceiver extends DefaultNumberWordReceiver {
@@ -10,7 +12,6 @@ public class CustomNumberWordReceiver extends DefaultNumberWordReceiver {
     private int min;
 
     public CustomNumberWordReceiver(Integer max, Integer min, Boolean dynamic) throws Exception {
-        super();
         int listSize = (dynamic) ? getDynamicListSize() : DEFAULT_LIST_SIZE;
         this.max = (max < 1) ? 1 : max;
         this.min = (min > max) ? max : min;
@@ -54,11 +55,11 @@ public class CustomNumberWordReceiver extends DefaultNumberWordReceiver {
     }
 
     private int getRandomLength(){
-        return (int) (Math.random() * (max - min)) + min;
+        return Random.nextInt(max - min) + min;
     }
 
     private String getRandomNumber() {
-        return String.valueOf((int) (Math.random() * 10));
+        return String.valueOf(Random.nextInt(10));
     }
 
 }

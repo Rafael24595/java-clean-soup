@@ -14,11 +14,15 @@ import org.w3c.dom.Node;
 
 abstract class AbstractReceivers extends AbstractDocument {
 
-    private String name;
+    private String code;
     protected HashMap<String, IReceiver> receivers;
 
     protected AbstractReceivers(Document document) {
         super(document);
+    }
+
+    public String getCode() {
+        return code;
     }
 
     protected void buildCollection(Class<? extends IReceiver> clazz, String tag) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
@@ -29,7 +33,7 @@ abstract class AbstractReceivers extends AbstractDocument {
     private HashMap<String, IReceiver> buildReceivers(Class<? extends IReceiver> clazz, String tag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
         this.receivers = new HashMap<>();
         Element receiverTag = getTagElement(document, tag);
-        ArrayList<Node> dependencies = getTagsElements(receiverTag, AbstractReceiver.DEPENDENCY);
+        List<Node> dependencies = getTagsElements(receiverTag, AbstractReceiver.DEPENDENCY);
 
         for (int i = 0; i < dependencies.size(); i++) {
             Element element = (Element) dependencies.get(i);
@@ -50,8 +54,8 @@ abstract class AbstractReceivers extends AbstractDocument {
 
     private String buildName(String tag) {
         Element receiverTag = getTagElement(document, tag);
-        this.name = getTagChildText(receiverTag, AbstractReceiver.NAME);
-        return this.name;
+        this.code = getTagChildText(receiverTag, AbstractReceiver.NAME);
+        return this.code;
     }
 
     protected <T extends core.java.receiver.IReceiver> ArrayList<T> getInstancesList() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

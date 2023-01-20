@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import io.configuration.entities.receiver.interfaces.IReceiver;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static io.configuration.tools.XmlTools.*;
 
@@ -15,7 +15,7 @@ public class Parameters {
     }
 
     public static void setParameters(Element element, IReceiver receiver) {
-        ArrayList<Node> parameters = getTagsElements(element, Parameter.PARAMETER);
+        List<Node> parameters = getTagsElements(element, Parameter.PARAMETER);
 
         for (int j = 0; j < parameters.size(); j++) {
             Element paramElement = (Element) parameters.get(j);

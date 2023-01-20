@@ -2,6 +2,9 @@ package core.java.tools;
 
 public class Tools {
 
+    private Tools(){
+    }
+
     public static  <T> T getPosition(T[] list, int i) {
         if(list != null){
             int index = Tools.fitIndex(list, i);

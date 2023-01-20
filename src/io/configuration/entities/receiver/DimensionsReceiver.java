@@ -14,6 +14,7 @@ class DimensionsReceiver extends AbstractReceiver implements IDimensionsReceiver
         super();
     }
 
+    @Override
     public int getQuantity() {
         int result = getInt(QUANTITY);
         return result == 0 ? super.getQuantity() : result;

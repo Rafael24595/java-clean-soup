@@ -4,6 +4,8 @@ import core.java.dependency.DependencyContainer;
 import core.java.entities.Dimensions;
 import core.java.receiver.dimensions.IDimensionsReceiver;
 
+import static core.java.receiver.dimensions.DefaultDimensionsReceiver.*;
+
 public class DefaultWordReceiver implements IWordReceiver {
 
     protected static final int MAX_ASCII = 91;
@@ -37,9 +39,9 @@ public class DefaultWordReceiver implements IWordReceiver {
         IDimensionsReceiver dimensionsReceiver = DependencyContainer.getInstance(IDimensionsReceiver.class);
         Dimensions dimensions = dimensionsReceiver.getDimensions();
 
-        int multiplier = (dimensions.getHeight() * dimensions.getWidth()) / (11 * 16);
+        int multiplier = (dimensions.getHeight() * dimensions.getWidth()) / (DEFAULT_HEIGHT * DEFAULT_WIDTH);
 
-        return (int) Math.floor(6 * multiplier);
+        return DEFAULT_LIST_SIZE * multiplier;
     }
 
     protected int getMaxAscii() {

@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import core.java.receiver.strict.IStrictReceiver;
-import core.java.receiver.word.IWordReceiver;
 import org.w3c.dom.Document;
 
 public class StrictReceivers extends AbstractReceivers {

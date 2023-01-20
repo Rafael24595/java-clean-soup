@@ -3,23 +3,24 @@ package core.java.entities;
 import core.java.entities.character.WordCharacter;
 import core.java.entities.character.WordCharacters;
 import core.java.entities.orientation.Orientation;
+import core.java.tools.Random;
 
 import java.text.Normalizer;
 
 public class Word {
 
-    private final int MAX_LOOPS = 5000;
+    private static final int MAX_LOOPS = 5000;
     private Panel panel;
-    private String word;
+    private String string;
 
     private WordCharacters characters;
     private Orientation orientation;
 
-    public Word(Panel panel, String word) throws Exception {
+    public Word(Panel panel, String string) throws Exception {
         this.panel = panel;
-        this.word = normalize(word);
+        this.string = normalize(string);
 
-        this.orientation = new Orientation(this.word);
+        this.orientation = new Orientation(this.string);
         this.characters = defineCharacters();
     }
 
@@ -29,8 +30,8 @@ public class Word {
         return normalizeWord.toUpperCase();
     }
 
-    public String getWord() {
-        return word;
+    public String getString() {
+        return string;
     }
 
     public WordCharacter[] getChars() {
@@ -54,15 +55,15 @@ public class Word {
             }
         }
 
-        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + word + "\" inside the panel, insufficient free space.");
+        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + string + "\" inside the panel, insufficient free space.");
     }
 
     private Position getRandomStartPoint(Panel panel) throws Exception {
         int loop = 0;
 
         while (loop < MAX_LOOPS){
-            int xProposed = (int) (Math.random() * panel.getWidth());
-            int yProposed = (int) (Math.random() * panel.getHeight());
+            int xProposed = Random.nextInt(panel.getWidth());
+            int yProposed = Random.nextInt(panel.getHeight());
             Position position = new Position(xProposed, yProposed);
 
             Area area = new Area(panel, position);
@@ -77,7 +78,7 @@ public class Word {
             loop++;
         }
 
-        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + word + "\" inside the panel, could not set start position.");
+        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + string + "\" inside the panel, could not set start position.");
     }
 
     private boolean validArea(Panel panel, int xArea, int yArea) throws Exception {
@@ -88,7 +89,7 @@ public class Word {
         int horizontalLength =  orientation.getHorizontalLength();
 
         if(panelHeight < verticalLength || panelWidth < horizontalLength)
-            throw new Exception("[WORD_EXCEPTION]: Word dimensions are greater than panel dimensions.");
+            throw new Exception("[WORD_EXCEPTION]: Word \"" + string + "\" dimensions are greater than panel dimensions.");
 
         return horizontalLength <= xArea && verticalLength <= yArea;
     }
