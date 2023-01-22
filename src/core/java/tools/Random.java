@@ -9,6 +9,8 @@ public class Random {
     }
 
     public static int nextInt(int integer) {
+        if(integer < 1)
+            return 0;
         return new Random().jRandom.nextInt(integer);
     }
 

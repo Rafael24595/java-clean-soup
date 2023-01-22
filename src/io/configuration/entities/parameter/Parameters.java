@@ -29,13 +29,15 @@ public class Parameters {
                 String paramType = getTagText(paramElement, Parameter.TYPE);
                 Object paramValue = buildParameterValue(paramElement);
 
-                IParameter parameter = new Parameter();
-                parameter.setName(paramName);
-                parameter.setOrder(paramOrder);
-                parameter.setType(paramType);
-                parameter.setValue(paramValue);
+                if(getElementStatus(paramElement)){
+                    IParameter parameter = new Parameter();
+                    parameter.setName(paramName);
+                    parameter.setOrder(paramOrder);
+                    parameter.setType(paramType);
+                    parameter.setValue(paramValue);
 
-                receiver.setParameter(parameter);
+                    receiver.setParameter(parameter);
+                }
             }
         }
     }
@@ -49,17 +51,14 @@ public class Parameters {
     }
 
     private static Object[] buildParameterArrayValue(String type, Element paramTag) {
+        Element valuesTag = getTagChild(paramTag, Parameter.VALUES);
+        List<Node> values = getTagsElements(valuesTag, Parameter.VALUE);
         ArrayList<Object> valuesList = new ArrayList<>();
 
-        if(getElementStatus(paramTag)){
-            Element valuesTag = getTagChild(paramTag, Parameter.VALUES);
-            List<Node> values = getTagsElements(valuesTag, Parameter.VALUE);
-
-            for (int i = 0; i < values.size(); i++) {
-                Element value = (Element) values.get(i);
-                if (getElementStatus(value))
-                    valuesList.add(castTextContent(type, value));
-            }
+        for (int i = 0; i < values.size(); i++) {
+            Element value = (Element) values.get(i);
+            if (getElementStatus(value))
+                valuesList.add(castTextContent(type, value));
         }
 
         return valuesList.toArray(new Object[0]);

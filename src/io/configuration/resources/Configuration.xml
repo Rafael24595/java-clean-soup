@@ -151,7 +151,7 @@
                         </parameter>
                     </parameters>
                 </dependency>
-                <dependency status="enabled">
+                <dependency status="disabled">
                     <name>CustomNumberWordReceiver</name>
                     <class>core.java.receiver.word.CustomNumberWordReceiver</class>
                     <order>2</order>
