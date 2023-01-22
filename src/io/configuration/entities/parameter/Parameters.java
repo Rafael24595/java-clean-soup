@@ -44,19 +44,22 @@ public class Parameters {
         Element valuesTag = getTagChild(paramTag, Parameter.VALUES);
         String type = getTagChildText(paramTag, Parameter.TYPE);
         if(valuesTag != null)
-            return buildParameterArrayValue(type, valuesTag);
+            return buildParameterArrayValue(type, paramTag);
         return getTagText(paramTag, Parameter.VALUE);
     }
 
-    private static Object[] buildParameterArrayValue(String type, Element valuesTag) {
-        List<Node> values = getTagsElements(valuesTag, Parameter.VALUE);
+    private static Object[] buildParameterArrayValue(String type, Element paramTag) {
         ArrayList<Object> valuesList = new ArrayList<>();
 
-        for (int i = 0; i < values.size(); i++) {
-            Element value = (Element) values.get(i);
-            boolean status = getElementStatus(value);
-            if (status)
-                valuesList.add(castTextContent(type, value));
+        if(getElementStatus(paramTag)){
+            Element valuesTag = getTagChild(paramTag, Parameter.VALUES);
+            List<Node> values = getTagsElements(valuesTag, Parameter.VALUE);
+
+            for (int i = 0; i < values.size(); i++) {
+                Element value = (Element) values.get(i);
+                if (getElementStatus(value))
+                    valuesList.add(castTextContent(type, value));
+            }
         }
 
         return valuesList.toArray(new Object[0]);

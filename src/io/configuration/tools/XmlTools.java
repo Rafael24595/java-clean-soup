@@ -51,6 +51,11 @@ public class XmlTools {
         return child;
     }
 
+    public static boolean existsTagChild(Element element, String tag) {
+        Element child = getTagChild(element, tag);
+        return child != null;
+    }
+
     private static Element findChild(NodeList children, String tag) {
         for (int i = 0; i < children.getLength(); i++) {
             Element child = getNodeElement(children.item(i));

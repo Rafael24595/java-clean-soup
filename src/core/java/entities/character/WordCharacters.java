@@ -39,7 +39,6 @@ public class WordCharacters {
     }
 
     private Position getPosition(Position startPosition, Orientation orientation, int increment) throws Exception {
-
         int xStart = startPosition.getX();
         int yStart = startPosition.getY();
 

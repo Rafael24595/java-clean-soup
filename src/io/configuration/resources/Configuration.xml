@@ -70,7 +70,7 @@
                             <order>2</order>
                             <value>16</value>
                         </parameter>
-                        <parameter>
+                        <parameter status="enabled">
                             <name>Free Points</name>
                             <type>INTEGER_ARRAY</type>
                             <order>3</order>
@@ -151,7 +151,7 @@
                         </parameter>
                     </parameters>
                 </dependency>
-                <dependency status="disabled">
+                <dependency status="enabled">
                     <name>CustomNumberWordReceiver</name>
                     <class>core.java.receiver.word.CustomNumberWordReceiver</class>
                     <order>2</order>
