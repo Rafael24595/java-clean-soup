@@ -1,8 +1,10 @@
 package core.java.receiver.orientation;
 
+import core.java.receiver.orientation.instance.IOrientationReceiver;
+
 import static core.java.entities.orientation.KOrientation.*;
 
-public class DefaultOrientationReceiver implements IOrientationReceiver{
+public class DefaultOrientationReceiver implements IOrientationReceiver {
 
     @Override
     public String[] getEnabledOrientations() {

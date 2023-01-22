@@ -1,6 +1,7 @@
 package core.java.receiver.dimensions;
 
 import core.java.entities.Dimensions;
+import core.java.receiver.dimensions.instance.IDimensionsReceiver;
 
 public class CustomDimensionsReceiver implements IDimensionsReceiver {
 

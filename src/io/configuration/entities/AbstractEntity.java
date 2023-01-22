@@ -22,8 +22,8 @@ public class AbstractEntity {
         return exists(field) ? String.valueOf(this.container.get(field)) : "";
     }
 
-    protected void set(String field, String value) {
-        this.container.put(field, value);
+    protected String[] getStringArray(String field){
+        return exists(field) ? (String[]) this.container.get(field) : new String[0];
     }
 
     protected int getInt(String field){

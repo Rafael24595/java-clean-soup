@@ -1,7 +1,7 @@
 package core.java.entities.orientation;
 
 import core.java.dependency.DependencyContainer;
-import core.java.receiver.orientation.IOrientationReceiver;
+import core.java.receiver.orientation.instance.IOrientationReceiver;
 
 import static core.java.entities.orientation.KOrientation.*;
 

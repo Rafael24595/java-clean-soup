@@ -2,9 +2,9 @@ package core.java.entities;
 
 import core.java.entities.character.WordCharacter;
 import core.java.print.IPrint;
-import core.java.receiver.dimensions.IDimensionsReceiver;
-import core.java.receiver.strict.IStrictReceiver;
-import core.java.receiver.word.IWordReceiver;
+import core.java.receiver.dimensions.instance.IDimensionsReceiver;
+import core.java.receiver.strict.instance.IStrictReceiver;
+import core.java.receiver.word.instance.IWordReceiver;
 
 import java.util.HashMap;
 

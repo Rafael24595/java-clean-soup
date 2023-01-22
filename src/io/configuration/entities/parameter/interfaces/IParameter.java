@@ -22,7 +22,7 @@ public interface IParameter {
 
     public Class<?> getClassValue();
 
-    void setValue(String value);
+    void setValue(Object value);
 
     IParameter build(Element element);
 

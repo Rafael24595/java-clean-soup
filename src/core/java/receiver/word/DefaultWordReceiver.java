@@ -2,7 +2,8 @@ package core.java.receiver.word;
 
 import core.java.dependency.DependencyContainer;
 import core.java.entities.Dimensions;
-import core.java.receiver.dimensions.IDimensionsReceiver;
+import core.java.receiver.dimensions.instance.IDimensionsReceiver;
+import core.java.receiver.word.instance.IWordReceiver;
 
 import static core.java.receiver.dimensions.DefaultDimensionsReceiver.*;
 

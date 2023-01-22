@@ -1,6 +1,6 @@
 package io.configuration.entities.receiver;
 
-import core.java.receiver.dimensions.IDimensionsReceiver;
+import core.java.receiver.dimensions.instance.IDimensionsReceiver;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.InvocationTargetException;

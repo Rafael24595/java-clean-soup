@@ -14,6 +14,7 @@ class Parameter extends AbstractEntity implements IParameter {
     static final String ORDER = "order";
     static final String TYPE = "type";
     static final String VALUE = "value";
+    static final String VALUES = "values";
 
     static class Type {
 
@@ -21,6 +22,9 @@ class Parameter extends AbstractEntity implements IParameter {
         }
 
         static final String INTEGER = "INTEGER";
+        static final String BOOLEAN = "BOOLEAN";
+        static final String STRING = "STRING";
+        static final String STRING_ARRAY = "STRING_ARRAY";
 
     }
 
@@ -59,8 +63,13 @@ class Parameter extends AbstractEntity implements IParameter {
     public Object getValueParsed() {
         String type = getType();
         switch (type) {
+            case Type.BOOLEAN:
+                return null;
             case Type.INTEGER:
                 return getInt(VALUE);
+            case Type.STRING_ARRAY:
+                return getStringArray(VALUE);
+            case Type.STRING:
             default:
                 return getString(VALUE);
         }
@@ -69,14 +78,19 @@ class Parameter extends AbstractEntity implements IParameter {
     public Class<?> getClassValue() {
         String type = getType();
         switch (type) {
+            case Type.BOOLEAN:
+                return Boolean.class;
             case Type.INTEGER:
                 return Integer.class;
+            case Type.STRING_ARRAY:
+                return String[].class;
+            case Type.STRING:
             default:
                 return String.class;
         }
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         set(VALUE, value);
     }
 

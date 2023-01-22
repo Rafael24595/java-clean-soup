@@ -24,7 +24,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
 
     public RAEWordReceiver(Boolean dynamic) throws Exception {
         super();
-        int listSize = dynamic ? getDynamicListSize() : DEFAULT_LIST_SIZE;
+        int listSize = dynamic.booleanValue() ? getDynamicListSize() : DEFAULT_LIST_SIZE;
         this.words = generateWords(listSize);
     }
 

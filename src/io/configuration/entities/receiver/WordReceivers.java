@@ -3,7 +3,7 @@ package io.configuration.entities.receiver;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import core.java.receiver.word.IWordReceiver;
+import core.java.receiver.word.instance.IWordReceiver;
 import org.w3c.dom.Document;
 
 public class WordReceivers extends AbstractReceivers {

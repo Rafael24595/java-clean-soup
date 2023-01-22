@@ -3,7 +3,7 @@ package io.configuration.entities.receiver;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import core.java.receiver.strict.IStrictReceiver;
+import core.java.receiver.strict.instance.IStrictReceiver;
 import org.w3c.dom.Document;
 
 public class StrictReceivers extends AbstractReceivers {

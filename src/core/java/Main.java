@@ -5,29 +5,32 @@ import core.java.tools.Tools;
 import io.configuration.Configuration;
 import core.java.dependency.DependencyContainer;
 import core.java.print.IPrint;
-import core.java.receiver.dimensions.IDimensionsReceiver;
-import core.java.receiver.strict.IStrictReceiver;
-import core.java.receiver.word.IWordReceiver;
+import core.java.receiver.dimensions.instance.IDimensionsReceiver;
+import core.java.receiver.strict.instance.IStrictReceiver;
+import core.java.receiver.word.instance.IWordReceiver;
+
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        start();
+        start(args);
     }
 
-    private static void start() throws Exception {
-        Configuration.initialize();
-        IWordReceiver[] iwr = Configuration.getWordReceiverInstances();
-        IDimensionsReceiver[] idr = Configuration.getDimensionsReceiverInstances();
-        IStrictReceiver isr = Configuration.getStrictReceiverInstance();
-        IPrint icr = Configuration.getPrinterInstance();
+    private static void start(String[] args) throws Exception {
+        File file = getArgsCustomConfigFile(args);
+        Configuration.initialize(file);
+        IWordReceiver[] wordReceivers = Configuration.getWordReceiverInstances();
+        IDimensionsReceiver[] dimensionsReceivers = Configuration.getDimensionsReceiverInstances();
+        IStrictReceiver strictReceiver = Configuration.getStrictReceiverInstance();
+        IPrint print = Configuration.getPrinterInstance();
 
-        DependencyContainer.addInstance(IStrictReceiver.class, isr);
-        DependencyContainer.addInstance(IPrint.class, icr);
+        DependencyContainer.addInstance(IStrictReceiver.class, strictReceiver);
+        DependencyContainer.addInstance(IPrint.class, print);
 
-        for (int i = 0; i < iwr.length; i++) {
-            IWordReceiver wordReceiver = iwr[i];
-            IDimensionsReceiver dimensionsReceiver = Tools.getPosition(idr, i);
+        for (int i = 0; i < wordReceivers.length; i++) {
+            IWordReceiver wordReceiver = wordReceivers[i];
+            IDimensionsReceiver dimensionsReceiver = Tools.getPosition(dimensionsReceivers, i);
 
             DependencyContainer.addInstance(IDimensionsReceiver.class, dimensionsReceiver);
             DependencyContainer.addInstance(IWordReceiver.class, wordReceiver);
@@ -44,6 +47,16 @@ public class Main {
 
         Panel panel = new Panel(dimensionsReceiver, wordsReceiver, strictReceiver);
         panel.print(printer);
+    }
+
+    private static File getArgsCustomConfigFile(String[] args) {
+        File file = null;
+        if(args.length > 0){
+            String path = args[0];
+            file = new File(path);
+        }
+
+        return file != null && file.exists() ? file : null;
     }
 
 }
