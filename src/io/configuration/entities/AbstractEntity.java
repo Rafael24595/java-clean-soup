@@ -22,8 +22,40 @@ public class AbstractEntity {
         return exists(field) ? String.valueOf(this.container.get(field)) : "";
     }
 
+    protected Integer[] getIntegerArray(String field){
+        if(!exists(field))
+            return new Integer[0];
+
+        if(this.container.get(field) instanceof Object[]){
+            Object[] array = (Object[]) this.container.get(field);
+            Integer[] list = new Integer[array.length];
+
+            for (int i = 0; i < list.length; i++) {
+                list[i] = (Integer) array[i];
+            }
+
+            this.container.put(field, list);
+        }
+
+        return (Integer[]) this.container.get(field);
+    }
+
     protected String[] getStringArray(String field){
-        return exists(field) ? (String[]) this.container.get(field) : new String[0];
+        if(!exists(field))
+            return new String[0];
+
+        if(this.container.get(field) instanceof Object[]){
+            Object[] array = (Object[]) this.container.get(field);
+            String[] list = new String[array.length];
+
+            for (int i = 0; i < list.length; i++) {
+                list[i] = (String) array[i];
+            }
+
+            this.container.put(field, list);
+        }
+
+        return (String[]) this.container.get(field);
     }
 
     protected int getInt(String field){

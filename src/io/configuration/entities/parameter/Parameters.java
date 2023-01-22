@@ -42,23 +42,35 @@ public class Parameters {
 
     private static Object buildParameterValue(Element paramTag) {
         Element valuesTag = getTagChild(paramTag, Parameter.VALUES);
+        String type = getTagChildText(paramTag, Parameter.TYPE);
         if(valuesTag != null)
-            return buildParameterArrayValue(valuesTag);
+            return buildParameterArrayValue(type, valuesTag);
         return getTagText(paramTag, Parameter.VALUE);
     }
 
-    private static Object buildParameterArrayValue(Element valuesTag) {
+    private static Object[] buildParameterArrayValue(String type, Element valuesTag) {
         List<Node> values = getTagsElements(valuesTag, Parameter.VALUE);
-        ArrayList<String> valuesList = new ArrayList<>();
+        ArrayList<Object> valuesList = new ArrayList<>();
 
         for (int i = 0; i < values.size(); i++) {
             Element value = (Element) values.get(i);
             boolean status = getElementStatus(value);
             if (status)
-                valuesList.add(value.getTextContent());
+                valuesList.add(castTextContent(type, value));
         }
 
-        return valuesList.toArray(new String[0]);
+        return valuesList.toArray(new Object[0]);
+    }
+
+    private static Object castTextContent(String type, Element value) {
+        String text = value.getTextContent();
+
+        switch (type){
+            case Parameter.Type.INTEGER_ARRAY:
+                return Integer.parseInt(text);
+            default:
+                return text;
+        }
     }
 
 }

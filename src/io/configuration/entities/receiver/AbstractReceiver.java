@@ -1,10 +1,8 @@
 package io.configuration.entities.receiver;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import io.configuration.entities.parameter.interfaces.IParameter;
 import io.configuration.entities.receiver.interfaces.IReceiver;
@@ -82,10 +80,9 @@ abstract class AbstractReceiver extends AbstractEntity implements IReceiver {
 
     private Class<?>[] getArgsType() {
         ArrayList<Class<?>> types = new ArrayList<>();
-        Set<Map.Entry<String, IParameter>> parameters = getParameters().entrySet();
+        Collection<IParameter> parameters = getSortedParameters();
 
-        for (Map.Entry<String, IParameter> entry : parameters) {
-            IParameter parameter = entry.getValue();
+        for (IParameter parameter : parameters) {
             Class<?> type = parameter.getClassValue();
 
             types.add(type);
@@ -96,16 +93,23 @@ abstract class AbstractReceiver extends AbstractEntity implements IReceiver {
 
     private Object[] getArgs() {
         ArrayList<Object> args = new ArrayList<>();
-        Set<Map.Entry<String, IParameter>> parameters = getParameters().entrySet();
+        Collection<IParameter> parameters = getSortedParameters();
 
-        for (Map.Entry<String, IParameter> entry : parameters) {
-            IParameter parameter = entry.getValue();
+        for (IParameter parameter : parameters) {
             Object arg = parameter.getValueParsed();
 
             args.add(arg);
         }
 
         return args.toArray(new Object[0]);
+    }
+
+    private Collection<IParameter> getSortedParameters() {
+        Collection<IParameter> parameters = getParameters().values();
+        return parameters
+                .stream()
+                .sorted(Comparator.comparingInt(IParameter::getOrder))
+                .collect(Collectors.toList());
     }
 
     public IReceiver build(Element element){

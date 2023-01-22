@@ -24,6 +24,7 @@ class Parameter extends AbstractEntity implements IParameter {
         static final String INTEGER = "INTEGER";
         static final String BOOLEAN = "BOOLEAN";
         static final String STRING = "STRING";
+        static final String INTEGER_ARRAY = "INTEGER_ARRAY";
         static final String STRING_ARRAY = "STRING_ARRAY";
 
     }
@@ -40,8 +41,8 @@ class Parameter extends AbstractEntity implements IParameter {
         set(NAME, name);
     }
 
-    public String getOrder() {
-        return getString(ORDER);
+    public int getOrder() {
+        return getInt(ORDER);
     }
 
     public void setOrder(String order) {
@@ -67,6 +68,8 @@ class Parameter extends AbstractEntity implements IParameter {
                 return null;
             case Type.INTEGER:
                 return getInt(VALUE);
+            case Type.INTEGER_ARRAY:
+                return getIntegerArray(VALUE);
             case Type.STRING_ARRAY:
                 return getStringArray(VALUE);
             case Type.STRING:
@@ -82,6 +85,8 @@ class Parameter extends AbstractEntity implements IParameter {
                 return Boolean.class;
             case Type.INTEGER:
                 return Integer.class;
+            case Type.INTEGER_ARRAY:
+                return Integer[].class;
             case Type.STRING_ARRAY:
                 return String[].class;
             case Type.STRING:

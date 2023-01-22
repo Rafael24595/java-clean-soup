@@ -2,28 +2,48 @@ package core.java.entities;
 
 public class Area {
 
-    private Position position;
-    private Panel panel;
+    private Position positionB;
+    private Position positionA;
 
     public Area(Panel panel, Position position) {
-        this.panel = panel;
-        this.position = position;
+        this(new Position(panel.getWidth(), panel.getHeight()), position);
+    }
+
+    public Area(Position positionA, Position positionB) {
+        this.positionA = positionA;
+        this.positionB = positionB;
+    }
+
+    public int getXPositionA(){
+        return this.positionA.getX();
+    }
+
+    public int getXPositionB(){
+        return this.positionB.getX();
+    }
+
+    public int getYPositionA(){
+        return this.positionA.getY();
+    }
+
+    public int getYPositionB(){
+        return this.positionB.getY();
     }
 
     public int getXPositive() {
-        return this.panel.getWidth() - position.getX();
+        return this.positionA.getX() - positionB.getX();
     }
 
     public int getYPositive() {
-        return this.panel.getHeight() - position.getY();
+        return this.positionA.getY() - positionB.getY();
     }
 
     public int getXNegative() {
-        return this.panel.getWidth() - getXPositive();
+        return this.positionA.getX() - getXPositive();
     }
 
     public int getYNegative() {
-        return this.panel.getHeight() - getYPositive();
+        return this.positionA.getY() - getYPositive();
     }
 
 }

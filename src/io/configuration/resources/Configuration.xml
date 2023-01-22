@@ -53,7 +53,7 @@
                         </parameter>
                     </parameters>
                 </dependency>
-                <dependency status="disabled">
+                <dependency status="enabled">
                     <name>CustomDimensionsReceiver</name>
                     <class>core.java.receiver.dimensions.CustomDimensionsReceiver</class>
                     <order>3</order>
@@ -62,13 +62,73 @@
                             <name>Height</name>
                             <type>INTEGER</type>
                             <order>1</order>
-                            <value>50</value>
+                            <value>11</value>
                         </parameter>
                         <parameter>
                             <name>Width</name>
                             <type>INTEGER</type>
-                            <order>1</order>
-                            <value>50</value>
+                            <order>2</order>
+                            <value>16</value>
+                        </parameter>
+                        <parameter>
+                            <name>Free Points</name>
+                            <type>INTEGER_ARRAY</type>
+                            <order>3</order>
+                            <values>
+                                <!-- Split top-left corner -->
+
+                                <value>-4</value>
+                                <value>-1</value>
+                                <value>4</value>
+                                <value>1</value>
+
+                                <value>-3</value>
+                                <value>-2</value>
+                                <value>3</value>
+                                <value>2</value>
+
+                                <value>-2</value>
+                                <value>-2</value>
+                                <value>2</value>
+                                <value>2</value>
+
+                                <value>-2</value>
+                                <value>-3</value>
+                                <value>2</value>
+                                <value>3</value>
+
+                                <value>-1</value>
+                                <value>-4</value>
+                                <value>1</value>
+                                <value>4</value>
+
+                                <!-- Split right-down corner -->
+
+                                <value>15</value>
+                                <value>5</value>
+                                <value>18</value>
+                                <value>9</value>
+
+                                <value>14</value>
+                                <value>6</value>
+                                <value>17</value>
+                                <value>10</value>
+
+                                <value>13</value>
+                                <value>7</value>
+                                <value>16</value>
+                                <value>11</value>
+
+                                <value>12</value>
+                                <value>8</value>
+                                <value>15</value>
+                                <value>12</value>
+
+                                <value>11</value>
+                                <value>9</value>
+                                <value>14</value>
+                                <value>13</value>
+                            </values>
                         </parameter>
                     </parameters>
                 </dependency>
@@ -77,7 +137,7 @@
         <word_receiver>
             <name>IWordReceiver</name>
             <dependencies>
-                <dependency status="enabled">
+                <dependency status="disabled">
                     <name>RAEWordReceiver</name>
                     <class>core.java.receiver.word.RAEWordReceiver</class>
                     <order>1</order>

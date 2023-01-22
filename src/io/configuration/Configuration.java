@@ -129,4 +129,11 @@ public class Configuration {
         return fileDef.equals(filePro);
     }
 
+    public static int wordReceiverLength() throws Exception {
+        if(instance == null)
+            initialize();
+        int length = getWordReceiverInstances().length;
+        return length < 1 ? 1 : length;
+    }
+
 }

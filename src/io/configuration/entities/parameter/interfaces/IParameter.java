@@ -8,9 +8,9 @@ public interface IParameter {
 
     void setName(String name);
 
-    public String getOrder();
+    int getOrder();
 
-    public void setOrder(String order);
+    void setOrder(String order);
 
     String getType();
 

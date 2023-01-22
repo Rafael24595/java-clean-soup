@@ -11,6 +11,8 @@ import java.util.HashMap;
 public class Panel {
 
     public static final char EMPTY_FIELD = '#';
+    public static final char NULL_FIELD = '%';
+    public static final char BLANK_FIELD = ' ';
 
     private Character[][] table;
     private HashMap<String, Word> words;
@@ -74,14 +76,18 @@ public class Panel {
 
         this.table = new java.lang.Character[height][width];
         for (int i = 0; i < table.length; i++) {
-            Character[] column = table[i];
-            fillColumnEmpty(column);
+            fillColumnEmpty(i);
         }
     }
 
-    private void fillColumnEmpty(java.lang.Character[] column) {
-        for (int i = 0; i < column.length; i++) {
-            column[i] = EMPTY_FIELD;
+    private void fillColumnEmpty(int iColumn) {
+        Dimensions dimensions = this.dimensionsReceiver.getDimensions();
+        Character[] column = table[iColumn];
+        for (int iRow = 0; iRow < column.length; iRow++) {
+            if(dimensions.isInFreeArea(iRow, iColumn))
+                column[iRow] = NULL_FIELD;
+            else
+                column[iRow] = EMPTY_FIELD;
         }
     }
 
@@ -119,6 +125,8 @@ public class Panel {
             Character character = column[i];
             if(character.equals(EMPTY_FIELD))
                 column[i] = getRandomCharacter();
+            if(character.equals(NULL_FIELD))
+                column[i] = BLANK_FIELD;
         }
     }
 
