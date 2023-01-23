@@ -25,7 +25,7 @@ public class ConsolePrint implements IPrint {
                     System.out.print(" ");
                 System.out.print(character);
                 if(k < column.length - 1)
-                    if(character.equals(' '))
+                    if(character.equals(' ') || (k + 1 < column.length && column[k + 1].equals(' ')))
                         System.out.print(' ');
                     else
                         System.out.print('-');

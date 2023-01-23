@@ -75,17 +75,17 @@
                             <type>STRING_ARRAY</type>
                             <order>3</order>
                             <values>
-                                <value>SPLIT_UP_LEFT</value>
+                                <!-- Misc -->
+                                <value status="disabled">SPLIT_UP_LEFT</value>
                                 <value status="disabled">SPLIT_UP_RIGHT</value>
                                 <value status="disabled">SPLIT_DOWN_LEFT</value>
-                                <value>SPLIT_DOWN_RIGHT</value>
+                                <value status="disabled">SPLIT_DOWN_RIGHT</value>
+                                <!-- Figures -->
+                                <value status="disabled">SPLIT_DIAMOND</value>
+                                <value status="enabled">SPLIT_DIAMOND_AESTHETIC</value>
+                                <value status="disabled">SPLIT_HEART</value>
+                                <value status="disabled">INNER_BOX</value>
                             </values>
-                        </parameter>
-                        <parameter>
-                            <name>Range</name>
-                            <type>INTEGER</type>
-                            <order>4</order>
-                            <value>3</value>
                         </parameter>
                         <parameter status="disabled">
                             <name>Free Points</name>
@@ -146,6 +146,12 @@
                                 <value>14</value>
                                 <value>13</value>
                             </values>
+                        </parameter>
+                        <parameter>
+                            <name>Range</name>
+                            <type>INTEGER</type>
+                            <order>4</order>
+                            <value>1</value>
                         </parameter>
                     </parameters>
                 </dependency>
