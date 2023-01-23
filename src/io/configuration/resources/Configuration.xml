@@ -1,0 +1,238 @@
+<clean_soup_configuration>
+    <receivers>
+        <dimensions_receiver>
+            <name>IDimensionsReceiver</name>
+            <dependencies>
+                <dependency status="disabled">
+                    <name>RandomRectangleDimensionsReceiver</name>
+                    <class>core.java.receiver.dimensions.RandomRectangleDimensionsReceiver</class>
+                    <order>1</order>
+                    <parameters>
+                        <parameter>
+                            <name>Max Height</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>50</value>
+                        </parameter>
+                        <parameter>
+                            <name>Min Height</name>
+                            <type>INTEGER</type>
+                            <order>2</order>
+                            <value>50</value>
+                        </parameter>
+                        <parameter status="disabled">
+                            <name>Max Width</name>
+                            <type>INTEGER</type>
+                            <order>3</order>
+                            <value>50</value>
+                        </parameter>
+                        <parameter status="disabled">
+                            <name>Min Width</name>
+                            <type>INTEGER</type>
+                            <order>4</order>
+                            <value>50</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+                <dependency status="disabled">
+                    <name>RandomSquareDimensionsReceiver</name>
+                    <class>core.java.receiver.dimensions.RandomSquareDimensionsReceiver</class>
+                    <order>2</order>
+                    <parameters>
+                        <parameter>
+                            <name>Max</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>50</value>
+                        </parameter>
+                        <parameter>
+                            <name>Min</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>50</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+                <dependency status="enabled">
+                    <name>CustomDimensionsReceiver</name>
+                    <class>core.java.receiver.dimensions.CustomDimensionsReceiver</class>
+                    <order>3</order>
+                    <parameters>
+                        <parameter>
+                            <name>Height</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>11</value>
+                        </parameter>
+                        <parameter>
+                            <name>Width</name>
+                            <type>INTEGER</type>
+                            <order>2</order>
+                            <value>16</value>
+                        </parameter>
+                        <parameter>
+                            <name>Split Corners</name>
+                            <type>STRING_ARRAY</type>
+                            <order>3</order>
+                            <values>
+                                <!-- Misc -->
+                                <value status="disabled">SPLIT_UP_LEFT</value>
+                                <value status="disabled">SPLIT_UP_RIGHT</value>
+                                <value status="disabled">SPLIT_DOWN_LEFT</value>
+                                <value status="disabled">SPLIT_DOWN_RIGHT</value>
+                                <!-- Figures -->
+                                <value status="disabled">SPLIT_DIAMOND</value>
+                                <value status="enabled">SPLIT_DIAMOND_AESTHETIC</value>
+                                <value status="disabled">SPLIT_HEART</value>
+                                <value status="disabled">INNER_BOX</value>
+                            </values>
+                        </parameter>
+                        <parameter status="disabled">
+                            <name>Free Points</name>
+                            <type>INTEGER_ARRAY</type>
+                            <order>3</order>
+                            <values>
+                                <!-- Split top-left corner -->
+
+                                <value>-4</value>
+                                <value>-1</value>
+                                <value>4</value>
+                                <value>1</value>
+
+                                <value>-3</value>
+                                <value>-2</value>
+                                <value>3</value>
+                                <value>2</value>
+
+                                <value>-2</value>
+                                <value>-2</value>
+                                <value>2</value>
+                                <value>2</value>
+
+                                <value>-2</value>
+                                <value>-3</value>
+                                <value>2</value>
+                                <value>3</value>
+
+                                <value>-1</value>
+                                <value>-4</value>
+                                <value>1</value>
+                                <value>4</value>
+
+                                <!-- Split right-down corner -->
+
+                                <value>15</value>
+                                <value>5</value>
+                                <value>18</value>
+                                <value>9</value>
+
+                                <value>14</value>
+                                <value>6</value>
+                                <value>17</value>
+                                <value>10</value>
+
+                                <value>13</value>
+                                <value>7</value>
+                                <value>16</value>
+                                <value>11</value>
+
+                                <value>12</value>
+                                <value>8</value>
+                                <value>15</value>
+                                <value>12</value>
+
+                                <value>11</value>
+                                <value>9</value>
+                                <value>14</value>
+                                <value>13</value>
+                            </values>
+                        </parameter>
+                        <parameter>
+                            <name>Range</name>
+                            <type>INTEGER</type>
+                            <order>4</order>
+                            <value>1</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+            </dependencies>
+        </dimensions_receiver>
+        <word_receiver>
+            <name>IWordReceiver</name>
+            <dependencies>
+                <dependency status="disabled">
+                    <name>RAEWordReceiver</name>
+                    <class>core.java.receiver.word.RAEWordReceiver</class>
+                    <order>1</order>
+                    <quantity>1</quantity>
+                    <parameters>
+                        <parameter>
+                            <name>List Size</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>5</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+                <dependency status="disabled">
+                    <name>CustomNumberWordReceiver</name>
+                    <class>core.java.receiver.word.CustomNumberWordReceiver</class>
+                    <order>2</order>
+                    <quantity>1</quantity>
+                    <parameters>
+                        <parameter>
+                            <name>List Size</name>
+                            <type>INTEGER</type>
+                            <order>1</order>
+                            <value>5</value>
+                        </parameter>
+                        <parameter>
+                            <name>Length</name>
+                            <type>INTEGER</type>
+                            <order>2</order>
+                            <value>10</value>
+                        </parameter>
+                    </parameters>
+                </dependency>
+                <dependency status="disabled">
+                    <name>CustomWordReceiver</name>
+                    <class>core.java.receiver.word.CustomWordReceiver</class>
+                    <order>3</order>
+                    <quantity>1</quantity>
+                    <parameters>
+                        <parameter>
+                            <name>List Size</name>
+                            <type>STRING_ARRAY</type>
+                            <order>1</order>
+                            <values>
+                                <value>VALUE_1</value>
+                                <value>VALUE_2</value>
+                                <value>VALUE_3</value>
+                                <value>VALUE_4</value>
+                                <value>VALUE_5</value>
+                                <value>VALUE_6</value>
+                            </values>
+                        </parameter>
+                    </parameters>
+                </dependency>
+            </dependencies>
+        </word_receiver>
+        <strict_receiver>
+            <name>IStrictReceiver</name>
+            <dependencies>
+                <dependency status="enabled">
+                    <name>DisableStrictReceiver</name>
+                    <class>core.java.receiver.strict.DisableStrictReceiver</class>
+                    <order>1</order>
+                    <parameters>
+                    </parameters>
+                </dependency>
+            </dependencies>
+        </strict_receiver>
+        <orientation_receiver>
+            <name>IOrientationReceiver</name>
+            <dependencies>
+            </dependencies>
+        </orientation_receiver>
+    </receivers>
+</clean_soup_configuration>

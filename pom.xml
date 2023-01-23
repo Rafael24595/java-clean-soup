@@ -14,6 +14,33 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>ISO-8859-15</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
 
         <dependency>
