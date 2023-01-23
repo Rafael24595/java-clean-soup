@@ -70,7 +70,24 @@
                             <order>2</order>
                             <value>16</value>
                         </parameter>
-                        <parameter status="enabled">
+                        <parameter>
+                            <name>Split Corners</name>
+                            <type>STRING_ARRAY</type>
+                            <order>3</order>
+                            <values>
+                                <value>SPLIT_UP_LEFT</value>
+                                <value status="disabled">SPLIT_UP_RIGHT</value>
+                                <value status="disabled">SPLIT_DOWN_LEFT</value>
+                                <value>SPLIT_DOWN_RIGHT</value>
+                            </values>
+                        </parameter>
+                        <parameter>
+                            <name>Range</name>
+                            <type>INTEGER</type>
+                            <order>4</order>
+                            <value>3</value>
+                        </parameter>
+                        <parameter status="disabled">
                             <name>Free Points</name>
                             <type>INTEGER_ARRAY</type>
                             <order>3</order>

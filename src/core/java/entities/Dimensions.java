@@ -32,8 +32,8 @@ public class Dimensions {
             int xB = area.getXPositionB();
             int yB = area.getYPositionB();
 
-            boolean swX = xA < x && x < xB;
-            boolean swY = yA < y && y < yB;
+            boolean swX = (xA <= x && x <= xB) || (xA >= x && x >= xB);
+            boolean swY = (yA <= y && y <= yB) || (yA >= y && y >= yB);
 
             if(swX && swY)
                 return true;

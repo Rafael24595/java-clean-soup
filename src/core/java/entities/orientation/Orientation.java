@@ -2,6 +2,7 @@ package core.java.entities.orientation;
 
 import core.java.dependency.DependencyContainer;
 import core.java.receiver.orientation.instance.IOrientationReceiver;
+import core.java.tools.Random;
 
 import static core.java.entities.orientation.KOrientation.*;
 
@@ -22,13 +23,19 @@ public class Orientation {
         this.code = generateRandomOrientation();
     }
 
+    public Orientation(String word, String code) throws Exception {
+        this.word = word;
+        this.orientations = generateOrientations();
+        this.code = code;
+    }
+
     private String[] generateOrientations() throws Exception {
         IOrientationReceiver orientationReceiver = DependencyContainer.getInstance(IOrientationReceiver.class);
         return orientationReceiver.getEnabledOrientations();
     }
 
     private String generateRandomOrientation() {
-        int position = (int) (Math.random() * orientations.length);
+        int position = Random.nextInt(orientations.length);
         return orientations[position];
     }
 
