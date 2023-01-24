@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import io.configuration.entities.parameter.interfaces.IParameter;
 import io.configuration.entities.receiver.interfaces.IReceiver;
+import io.configuration.exception.ConfigurationException;
+
 import org.w3c.dom.Element;
 import io.configuration.entities.AbstractEntity;
 import static io.configuration.tools.XmlTools.*;
@@ -64,18 +66,25 @@ abstract class AbstractReceiver extends AbstractEntity implements IReceiver {
         parameters.put(parameter.getName(), parameter);
     }
 
+    @SuppressWarnings("unchecked")
     public HashMap<String, IParameter> getParameters() {
         if(!exists(PARAMETERS))
             this.container.put(PARAMETERS, new HashMap<String, IParameter>());
         return (HashMap<String, IParameter>) this.container.get(PARAMETERS);
     }
 
-    public core.java.receiver.IReceiver getInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    @SuppressWarnings("unchecked")
+    public core.java.receiver.IReceiver getInstance() throws ConfigurationException {
         Class<?>[] types = getArgsType();
         Object[] args = getArgs();
 
-        Class<core.java.receiver.IReceiver> clazz = (Class<core.java.receiver.IReceiver>) Class.forName(getClassPath());
-        return clazz.getDeclaredConstructor(types).newInstance(args);
+        try {
+            Class<core.java.receiver.IReceiver> clazz = (Class<core.java.receiver.IReceiver>) Class.forName(getClassPath());
+            return clazz.getDeclaredConstructor(types).newInstance(args);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+            throw new ConfigurationException(e);
+        }
     }
 
     private Class<?>[] getArgsType() {

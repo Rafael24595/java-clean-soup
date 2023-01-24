@@ -1,27 +1,27 @@
 package io.configuration.entities.receiver;
 
 import core.java.print.IPrint;
-import org.w3c.dom.Document;
+import io.configuration.exception.ConfigurationException;
 
-import java.lang.reflect.InvocationTargetException;
+import org.w3c.dom.Document;
 import java.util.ArrayList;
 
 public class Prints extends AbstractReceivers {
 
-    private Prints(Document document) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
+    private Prints(Document document) throws ConfigurationException {
         super(document);
         buildWordReceivers();
     }
 
-    public static Prints getInstance(Document document) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException{
+    public static Prints getInstance(Document document) throws ConfigurationException {
         return new Prints(document);
     }
 
-    private void buildWordReceivers() throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
+    private void buildWordReceivers() throws ConfigurationException {
         buildCollection(Print.class, Print.PRINT_RECEIVER);
     }
 
-    public IPrint[] getInstances() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public IPrint[] getInstances() throws ConfigurationException {
         ArrayList<IPrint> instances = super.getInstancesList();
         return instances.toArray(new IPrint[0]);
     }

@@ -2,6 +2,7 @@ package core.java.receiver.word;
 
 import core.java.dependency.DependencyContainer;
 import core.java.entities.Dimensions;
+import core.java.exception.DependecyException;
 import core.java.receiver.dimensions.instance.IDimensionsReceiver;
 import core.java.receiver.word.instance.IWordReceiver;
 
@@ -36,7 +37,7 @@ public class DefaultWordReceiver implements IWordReceiver {
         return this.words.length;
     }
 
-    public int getDynamicListSize() throws Exception {
+    public int getDynamicListSize() throws DependecyException {
         IDimensionsReceiver dimensionsReceiver = DependencyContainer.getInstance(IDimensionsReceiver.class);
         Dimensions dimensions = dimensionsReceiver.getDimensions();
 

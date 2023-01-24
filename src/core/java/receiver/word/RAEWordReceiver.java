@@ -8,6 +8,9 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
+import core.java.exception.DependecyException;
+import core.java.exception.ReceiverException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,22 +21,22 @@ public class RAEWordReceiver extends CustomWordReceiver {
     private static final String WEB_QUERY = "m=random";
     private static final String NODE_REFERENCE = ".f";
 
-    public RAEWordReceiver() throws Exception {
+    public RAEWordReceiver() throws DependecyException, ReceiverException {
         this(false);
     }
 
-    public RAEWordReceiver(Boolean dynamic) throws Exception {
+    public RAEWordReceiver(Boolean dynamic) throws DependecyException, ReceiverException {
         super();
         int listSize = dynamic.booleanValue() ? getDynamicListSize() : DEFAULT_LIST_SIZE;
         this.words = generateWords(listSize);
     }
 
-    public RAEWordReceiver(Integer listSize) throws Exception {
+    public RAEWordReceiver(Integer listSize) throws ReceiverException {
         super();
         this.words = generateWords(listSize);
     }
 
-    public String[] generateWords(int listSize) throws Exception {
+    public String[] generateWords(int listSize) throws ReceiverException {
         ArrayList<String> words = new ArrayList<>();
 
         for (int i = 0; i < listSize; i++) {
@@ -44,7 +47,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
         return words.toArray(new String[0]);
     }
 
-    private String fetchRandomWord() throws Exception {
+    private String fetchRandomWord() throws ReceiverException {
         try {
             Connection connection = getConnection();
             Document document = connection.get();
@@ -53,7 +56,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
             Node node = element.childNode(0);
             return cleanText(node);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ReceiverException(e);
         }
     }
 
@@ -71,12 +74,12 @@ public class RAEWordReceiver extends CustomWordReceiver {
         return sb.toString();
     }
 
-    private String cleanText(Node node) throws Exception {
+    private String cleanText(Node node) throws ReceiverException {
         if(node instanceof TextNode){
             String text = ((TextNode) node).getWholeText();
             return text.split(",")[0];
         }
-        throw new Exception("[RAE_WORD] Cannot get text content of current HTML node.");
+        throw new ReceiverException("[RAE_WORD] Cannot get text content of current HTML node.");
     }
 
 }

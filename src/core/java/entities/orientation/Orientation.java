@@ -1,6 +1,8 @@
 package core.java.entities.orientation;
 
 import core.java.dependency.DependencyContainer;
+import core.java.exception.DependecyException;
+import core.java.exception.SoupException;
 import core.java.receiver.orientation.instance.IOrientationReceiver;
 import core.java.tools.Random;
 
@@ -17,19 +19,19 @@ public class Orientation {
     private String word;
     private String code;
 
-    public Orientation(String word) throws Exception {
+    public Orientation(String word) throws DependecyException {
         this.word = word;
         this.orientations = generateOrientations();
         this.code = generateRandomOrientation();
     }
 
-    public Orientation(String word, String code) throws Exception {
+    public Orientation(String word, String code) throws DependecyException {
         this.word = word;
         this.orientations = generateOrientations();
         this.code = code;
     }
 
-    private String[] generateOrientations() throws Exception {
+    private String[] generateOrientations() throws DependecyException {
         IOrientationReceiver orientationReceiver = DependencyContainer.getInstance(IOrientationReceiver.class);
         return orientationReceiver.getEnabledOrientations();
     }
@@ -39,15 +41,15 @@ public class Orientation {
         return orientations[position];
     }
 
-    public int getHorizontalLength() throws Exception {
+    public int getHorizontalLength() throws SoupException {
         return getHorizontalMultiplier() != MULTIPLIER_NULL ? word.length() : 1;
     }
 
-    public int getVerticalLength() throws Exception {
+    public int getVerticalLength() throws SoupException {
         return getVerticalMultiplier() != MULTIPLIER_NULL ? word.length() : 1;
     }
 
-    public int getHorizontalMultiplier() throws Exception {
+    public int getHorizontalMultiplier() throws SoupException {
         switch (code) {
             case DIAGONAL_SOUTH_WEST:
             case HORIZONTAL_WEST:
@@ -61,11 +63,11 @@ public class Orientation {
             case VERTICAL_NORTH:
                 return MULTIPLIER_NULL;
             default:
-                throw new Exception("Orientation is not defined");
+                throw new SoupException("Orientation is not defined");
         }
     }
 
-    public int getVerticalMultiplier() throws Exception {
+    public int getVerticalMultiplier() throws SoupException {
         switch (code) {
             case VERTICAL_NORTH:
             case DIAGONAL_NORTH_EAST:
@@ -79,15 +81,15 @@ public class Orientation {
             case HORIZONTAL_WEST:
                 return MULTIPLIER_NULL;
             default:
-                throw new Exception("Orientation is not defined");
+                throw new SoupException("Orientation is not defined");
         }
     }
 
-    public boolean isHorizontalInverse() throws Exception {
+    public boolean isHorizontalInverse() throws SoupException {
         return getHorizontalMultiplier() == MULTIPLIER_DYNAMIC_NEGATIVE;
     }
 
-    public boolean isVerticalInverse() throws Exception {
+    public boolean isVerticalInverse() throws SoupException {
         return getVerticalMultiplier() == MULTIPLIER_DYNAMIC_NEGATIVE;
     }
 

@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import io.configuration.entities.receiver.StrictReceivers;
 import io.configuration.entities.receiver.WordReceivers;
+import io.configuration.exception.ConfigurationException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,10 +29,10 @@ public class Configuration {
     private StrictReceivers strictReceiver;
     private Prints printReceiver;
 
-    private Configuration(File file) throws Exception {
+    private Configuration(File file) throws ConfigurationException {
         Document document = read(file);
         if(document == null)
-            throw new Exception("[CONFIG_EXCEPTION]: Cannot set default settings, check provided file.");
+            throw new ConfigurationException("Cannot set default settings, check provided file.");
 
         this.wordReceivers = WordReceivers.getInstance(document);
         this.dimensionsReceivers = DimensionsReceivers.getInstance(document);
@@ -39,30 +40,38 @@ public class Configuration {
         this.printReceiver = Prints.getInstance(document);
     }
 
-    public static void initialize() throws Exception {
+    public static void initialize() throws ConfigurationException {
         initialize(null);
     }
 
-    public static void initialize(File file) throws Exception {
+    public static void initialize(File file) throws ConfigurationException {
         if(instance == null)
             instance = new Configuration(file);
     }
 
-    private Document read(String path) throws ParserConfigurationException, IOException {
+    private Document read(String path) throws ConfigurationException {
         File file = new File(path);
-        return read(file);
+        try {
+            return read(file);
+        } catch (ConfigurationException e) {
+            throw new ConfigurationException(e);
+        }
     }
 
-    private Document read(File filePro) throws ParserConfigurationException, IOException {
+    private Document read(File filePro) throws ConfigurationException {
         if(filePro != null && filePro.exists()){
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
+            DocumentBuilder dBuilder;
             try {
+                dBuilder = dbFactory.newDocumentBuilder();
+
                 Document doc = dBuilder.parse(filePro);
                 doc.getDocumentElement().normalize();
                 return doc;
-            }catch (SAXException | IOException e){
+
+            } catch (ParserConfigurationException e) {
+                throw new ConfigurationException(e);
+            } catch (SAXException | IOException e){
                 if(isDefaultConfigFile(filePro))
                     return null;
             }
@@ -71,53 +80,53 @@ public class Configuration {
         return read(DEFAULT_PATH_CONFIG);
     }
 
-    public static IWordReceiver getWordReceiverInstance() throws Exception {
+    public static IWordReceiver getWordReceiverInstance() throws ConfigurationException {
         IWordReceiver[] receivers = getWordReceiverInstances();
         if(receivers != null && receivers.length != 0)
             return receivers[0];
         return null;
     }
 
-    public static IWordReceiver[] getWordReceiverInstances() throws Exception {
+    public static IWordReceiver[] getWordReceiverInstances() throws ConfigurationException {
         if(instance == null)
             initialize();
         return instance.wordReceivers.getInstances();
     }
 
-    public static IDimensionsReceiver getDimensionsReceiverInstance() throws Exception {
+    public static IDimensionsReceiver getDimensionsReceiverInstance() throws ConfigurationException {
         IDimensionsReceiver[] receivers = getDimensionsReceiverInstances();
         if(receivers != null && receivers.length != 0)
             return receivers[0];
         return null;
     }
 
-    public static IDimensionsReceiver[] getDimensionsReceiverInstances() throws Exception {
+    public static IDimensionsReceiver[] getDimensionsReceiverInstances() throws ConfigurationException {
         if(instance == null)
             initialize();
         return instance.dimensionsReceivers.getInstances();
     }
 
-    public static IStrictReceiver getStrictReceiverInstance() throws Exception {
+    public static IStrictReceiver getStrictReceiverInstance() throws ConfigurationException {
         IStrictReceiver[] receivers = getStrictReceiverInstances();
         if(receivers != null && receivers.length != 0)
             return receivers[0];
         return null;
     }
 
-    public static IStrictReceiver[] getStrictReceiverInstances() throws Exception {
+    public static IStrictReceiver[] getStrictReceiverInstances() throws ConfigurationException {
         if(instance == null)
             initialize();
         return instance.strictReceiver.getInstances();
     }
 
-    public static IPrint getPrinterInstance() throws Exception {
+    public static IPrint getPrinterInstance() throws ConfigurationException {
         IPrint[] receivers = getPrinterInstances();
         if(receivers != null && receivers.length != 0)
             return receivers[0];
         return null;
     }
 
-    public static IPrint[] getPrinterInstances() throws Exception {
+    public static IPrint[] getPrinterInstances() throws ConfigurationException {
         if(instance == null)
             initialize();
         return instance.printReceiver.getInstances();
@@ -129,7 +138,7 @@ public class Configuration {
         return fileDef.equals(filePro);
     }
 
-    public static int wordReceiverLength() throws Exception {
+    public static int wordReceiverLength() throws ConfigurationException {
         if(instance == null)
             initialize();
         int length = getWordReceiverInstances().length;
