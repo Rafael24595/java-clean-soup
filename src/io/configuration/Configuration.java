@@ -32,7 +32,7 @@ public class Configuration {
     private Configuration(File file) throws ConfigurationException {
         Document document = read(file);
         if(document == null)
-            throw new ConfigurationException("Cannot set default settings, check provided file.");
+            throw new ConfigurationException("Cannot set default settings, check provided file");
 
         this.wordReceivers = WordReceivers.getInstance(document);
         this.dimensionsReceivers = DimensionsReceivers.getInstance(document);

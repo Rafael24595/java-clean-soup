@@ -3,6 +3,7 @@ package core.java.entities;
 import core.java.entities.character.WordCharacter;
 import core.java.entities.character.WordCharacters;
 import core.java.entities.orientation.Orientation;
+import core.java.exception.ErrorCode;
 import core.java.exception.SoupException;
 import core.java.tools.Random;
 
@@ -56,7 +57,7 @@ public class Word {
             }
         }
 
-        throw new SoupException("Cannot inject the word \"&var\" inside the panel, insufficient free space.", string);
+        throw new SoupException(ErrorCode.WORD_ENTITY, "Cannot inject the word \"&var\" inside the panel, insufficient free space", string);
     }
 
     private Position getRandomStartPoint(Panel panel) throws SoupException {
@@ -79,7 +80,7 @@ public class Word {
             loop++;
         }
 
-        throw new SoupException("Cannot inject the word \"&var\" inside the panel, could not set start position.", string);
+        throw new SoupException(ErrorCode.WORD_ENTITY, "Cannot inject the word \"&var\" inside the panel, could not set start position.", string);
     }
 
     private boolean validArea(Panel panel, int xArea, int yArea) throws SoupException {
@@ -90,7 +91,7 @@ public class Word {
         int horizontalLength =  orientation.getHorizontalLength();
 
         if(panelHeight < verticalLength || panelWidth < horizontalLength)
-            throw new SoupException("Word \"&var\" dimensions are greater than panel dimensions.", string);
+            throw new SoupException(ErrorCode.WORD_ENTITY, "Word \"&var\" dimensions are greater than panel dimensions.", string);
 
         return horizontalLength <= xArea && verticalLength <= yArea;
     }

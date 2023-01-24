@@ -1,5 +1,6 @@
 package core.java.receiver.word;
 
+import core.java.exception.ErrorCode;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,7 +9,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-import core.java.exception.DependecyException;
+import core.java.exception.DependencyException;
 import core.java.exception.ReceiverException;
 
 import java.io.IOException;
@@ -21,11 +22,11 @@ public class RAEWordReceiver extends CustomWordReceiver {
     private static final String WEB_QUERY = "m=random";
     private static final String NODE_REFERENCE = ".f";
 
-    public RAEWordReceiver() throws DependecyException, ReceiverException {
+    public RAEWordReceiver() throws DependencyException, ReceiverException {
         this(false);
     }
 
-    public RAEWordReceiver(Boolean dynamic) throws DependecyException, ReceiverException {
+    public RAEWordReceiver(Boolean dynamic) throws DependencyException, ReceiverException {
         super();
         int listSize = dynamic.booleanValue() ? getDynamicListSize() : DEFAULT_LIST_SIZE;
         this.words = generateWords(listSize);
@@ -56,7 +57,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
             Node node = element.childNode(0);
             return cleanText(node);
         } catch (IOException e) {
-            throw new ReceiverException(e);
+            throw new ReceiverException(e, ErrorCode.WORD_RECEIVER);
         }
     }
 
@@ -79,7 +80,7 @@ public class RAEWordReceiver extends CustomWordReceiver {
             String text = ((TextNode) node).getWholeText();
             return text.split(",")[0];
         }
-        throw new ReceiverException("[RAE_WORD] Cannot get text content of current HTML node.");
+        throw new ReceiverException(ErrorCode.WORD_RECEIVER, "Cannot get text content of current HTML node");
     }
 
 }

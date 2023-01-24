@@ -1,7 +1,8 @@
 package core.java.entities.orientation;
 
 import core.java.dependency.DependencyContainer;
-import core.java.exception.DependecyException;
+import core.java.exception.DependencyException;
+import core.java.exception.ErrorCode;
 import core.java.exception.SoupException;
 import core.java.receiver.orientation.instance.IOrientationReceiver;
 import core.java.tools.Random;
@@ -19,19 +20,19 @@ public class Orientation {
     private String word;
     private String code;
 
-    public Orientation(String word) throws DependecyException {
+    public Orientation(String word) throws DependencyException {
         this.word = word;
         this.orientations = generateOrientations();
         this.code = generateRandomOrientation();
     }
 
-    public Orientation(String word, String code) throws DependecyException {
+    public Orientation(String word, String code) throws DependencyException {
         this.word = word;
         this.orientations = generateOrientations();
         this.code = code;
     }
 
-    private String[] generateOrientations() throws DependecyException {
+    private String[] generateOrientations() throws DependencyException {
         IOrientationReceiver orientationReceiver = DependencyContainer.getInstance(IOrientationReceiver.class);
         return orientationReceiver.getEnabledOrientations();
     }
@@ -63,7 +64,7 @@ public class Orientation {
             case VERTICAL_NORTH:
                 return MULTIPLIER_NULL;
             default:
-                throw new SoupException("Orientation is not defined");
+                throw new SoupException(ErrorCode.ORIENTATION_ENTITY, "Orientation is not defined");
         }
     }
 
@@ -81,7 +82,7 @@ public class Orientation {
             case HORIZONTAL_WEST:
                 return MULTIPLIER_NULL;
             default:
-                throw new SoupException("Orientation is not defined");
+                throw new SoupException(ErrorCode.ORIENTATION_ENTITY, "Orientation is not defined");
         }
     }
 
