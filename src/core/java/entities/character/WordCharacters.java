@@ -4,6 +4,7 @@ import core.java.entities.Panel;
 import core.java.entities.Position;
 import core.java.entities.Word;
 import core.java.entities.orientation.Orientation;
+import core.java.exception.SoupException;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class WordCharacters {
         this.charsPositions = generateCharsPosition(panel, startPosition);
     }
 
-    private ArrayList<WordCharacter> generateCharsPosition(Panel panel, Position startPosition) throws Exception {
+    private ArrayList<WordCharacter> generateCharsPosition(Panel panel, Position startPosition) throws SoupException {
         ArrayList<WordCharacter> charList = new ArrayList<>();
         Orientation orientation = word.getOrientation();
         String stringWord = word.getString();
@@ -38,7 +39,7 @@ public class WordCharacters {
         return charList;
     }
 
-    private Position getPosition(Position startPosition, Orientation orientation, int increment) throws Exception {
+    private Position getPosition(Position startPosition, Orientation orientation, int increment) throws SoupException {
         int xStart = startPosition.getX();
         int yStart = startPosition.getY();
 

@@ -1,10 +1,10 @@
 package io.configuration.entities.receiver.interfaces;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import org.w3c.dom.Element;
 
 import io.configuration.entities.parameter.interfaces.IParameter;
+import io.configuration.exception.ConfigurationException;
 
 public interface IReceiver  {
     
@@ -28,7 +28,7 @@ public interface IReceiver  {
 
     HashMap<String, IParameter> getParameters();
 
-    <T extends core.java.receiver.IReceiver> T getInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+    <T extends core.java.receiver.IReceiver> T getInstance() throws ConfigurationException;
 
     IReceiver build(Element element);
 

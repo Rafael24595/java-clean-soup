@@ -3,6 +3,7 @@ package core.java;
 import core.java.entities.Panel;
 import core.java.tools.Tools;
 import io.configuration.Configuration;
+import io.configuration.exception.ConfigurationException;
 import core.java.dependency.DependencyContainer;
 import core.java.print.IPrint;
 import core.java.receiver.dimensions.instance.IDimensionsReceiver;
@@ -21,12 +22,12 @@ public class Main {
         }
     }
 
-    private static void loadAppConfiguration(String[] args) throws Exception {
+    private static void loadAppConfiguration(String[] args) throws ConfigurationException {
         Arguments.initialize(args);
         Configuration.initialize(Arguments.customConfigurationFile());
     }
 
-    private static void loadGlobalDependencies() throws Exception {
+    private static void loadGlobalDependencies() throws ConfigurationException {
         IStrictReceiver strictReceiver = Configuration.getStrictReceiverInstance();
         IPrint print = Configuration.getPrinterInstance();
 
@@ -34,7 +35,7 @@ public class Main {
         DependencyContainer.addInstance(IPrint.class, print);
     }
 
-    private static void loadInstanceDependencies(int index) throws Exception {
+    private static void loadInstanceDependencies(int index) throws ConfigurationException {
         IWordReceiver[] wordReceivers = Configuration.getWordReceiverInstances();
         IDimensionsReceiver[] dimensionsReceivers = Configuration.getDimensionsReceiverInstances();
 

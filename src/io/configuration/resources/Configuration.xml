@@ -71,7 +71,7 @@
                             <value>16</value>
                         </parameter>
                         <parameter>
-                            <name>Split Corners</name>
+                            <name>Split Geometry</name>
                             <type>STRING_ARRAY</type>
                             <order>3</order>
                             <values>

@@ -3,6 +3,8 @@ package core.java.entities;
 import core.java.entities.character.WordCharacter;
 import core.java.entities.character.WordCharacters;
 import core.java.entities.orientation.Orientation;
+import core.java.exception.ErrorCode;
+import core.java.exception.SoupException;
 import core.java.tools.Random;
 
 import java.text.Normalizer;
@@ -55,10 +57,10 @@ public class Word {
             }
         }
 
-        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + string + "\" inside the panel, insufficient free space.");
+        throw new SoupException(ErrorCode.WORD_ENTITY, "Cannot inject the word \"&var\" inside the panel, insufficient free space", string);
     }
 
-    private Position getRandomStartPoint(Panel panel) throws Exception {
+    private Position getRandomStartPoint(Panel panel) throws SoupException {
         int loop = 0;
 
         while (loop < MAX_LOOPS){
@@ -78,10 +80,10 @@ public class Word {
             loop++;
         }
 
-        throw new Exception("[WORD_EXCEPTION]: Cannot inject the word \"" + string + "\" inside the panel, could not set start position.");
+        throw new SoupException(ErrorCode.WORD_ENTITY, "Cannot inject the word \"&var\" inside the panel, could not set start position.", string);
     }
 
-    private boolean validArea(Panel panel, int xArea, int yArea) throws Exception {
+    private boolean validArea(Panel panel, int xArea, int yArea) throws SoupException {
         int panelHeight = panel.getHeight();
         int panelWidth = panel.getWidth();
 
@@ -89,7 +91,7 @@ public class Word {
         int horizontalLength =  orientation.getHorizontalLength();
 
         if(panelHeight < verticalLength || panelWidth < horizontalLength)
-            throw new Exception("[WORD_EXCEPTION]: Word \"" + string + "\" dimensions are greater than panel dimensions.");
+            throw new SoupException(ErrorCode.WORD_ENTITY, "Word \"&var\" dimensions are greater than panel dimensions.", string);
 
         return horizontalLength <= xArea && verticalLength <= yArea;
     }

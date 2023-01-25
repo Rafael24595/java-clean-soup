@@ -1,27 +1,27 @@
 package io.configuration.entities.receiver;
 
 import core.java.receiver.dimensions.instance.IDimensionsReceiver;
-import org.w3c.dom.Document;
+import io.configuration.exception.ConfigurationException;
 
-import java.lang.reflect.InvocationTargetException;
+import org.w3c.dom.Document;
 import java.util.ArrayList;
 
 public class DimensionsReceivers extends AbstractReceivers {
 
-    private DimensionsReceivers(Document document) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
+    private DimensionsReceivers(Document document) throws ConfigurationException {
         super(document);
         buildDimensionsReceivers();
     }
 
-    public static DimensionsReceivers getInstance(Document document) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException{
+    public static DimensionsReceivers getInstance(Document document) throws ConfigurationException {
         return new DimensionsReceivers(document);
     }
 
-    private void buildDimensionsReceivers() throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
+    private void buildDimensionsReceivers() throws ConfigurationException {
         buildCollection(DimensionsReceiver.class, DimensionsReceiver.DIMENSIONS_RECEIVER);
     }
 
-    public IDimensionsReceiver[] getInstances() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public IDimensionsReceiver[] getInstances() throws ConfigurationException {
         ArrayList<IDimensionsReceiver> instances = super.getInstancesList();
         return instances.toArray(new IDimensionsReceiver[0]);
     }
