@@ -1,9 +1,9 @@
 package io.configuration.entities.parameter;
 
 import io.configuration.entities.parameter.interfaces.IParameter;
+import io.configuration.entities.receiver.interfaces.IModule;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import io.configuration.entities.receiver.interfaces.IReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Parameters {
     private Parameters(){
     }
 
-    public static void setParameters(Element element, IReceiver receiver) {
+    public static void setParameters(Element element, IModule receiver) {
         List<Node> parameters = getTagsElements(element, Parameter.PARAMETER);
 
         for (int i = 0; i < parameters.size(); i++) {

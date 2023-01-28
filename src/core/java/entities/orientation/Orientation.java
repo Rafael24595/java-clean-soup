@@ -4,7 +4,7 @@ import core.java.dependency.DependencyContainer;
 import core.java.exception.DependencyException;
 import core.java.exception.ErrorCode;
 import core.java.exception.SoupException;
-import core.java.receiver.orientation.instance.IOrientationReceiver;
+import core.java.module.receiver.orientation.interfaces.IOrientationReceiver;
 import core.java.tools.Random;
 
 import static core.java.entities.orientation.KOrientation.*;

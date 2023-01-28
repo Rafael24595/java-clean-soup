@@ -32,8 +32,7 @@ public class SoupException extends Exception {
     }
 
     public SoupException(Throwable cause, ErrorCode code, String message, String ...args) {
-        super(
-            MessageBuilder.build(code.name(), message, args), cause);
+        super(MessageBuilder.build(code.name(), message.isEmpty() ? "Error general" : message, args), cause);
         this.rawMessage = message;
         this.args = args;
     }

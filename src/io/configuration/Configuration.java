@@ -1,16 +1,15 @@
 package io.configuration;
 
-import core.java.print.IPrint;
-import core.java.receiver.dimensions.instance.IDimensionsReceiver;
-import core.java.receiver.strict.instance.IStrictReceiver;
-import core.java.receiver.word.instance.IWordReceiver;
-import io.configuration.entities.receiver.DimensionsReceivers;
-import io.configuration.entities.receiver.Prints;
+import core.java.module.log.interfaces.ILog;
+import core.java.module.print.interfaces.IPrint;
+import core.java.module.receiver.dimensions.interfaces.IDimensionsReceiver;
+import core.java.module.receiver.orientation.interfaces.IOrientationReceiver;
+import core.java.module.receiver.strict.interfaces.IStrictReceiver;
+import core.java.module.receiver.word.interfaces.IWordReceiver;
+import io.configuration.entities.receiver.*;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import io.configuration.entities.receiver.StrictReceivers;
-import io.configuration.entities.receiver.WordReceivers;
 import io.configuration.exception.ConfigurationException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,20 +23,26 @@ public class Configuration {
     private static final String DEFAULT_PATH_CONFIG = "src/io/configuration/resources/Configuration.xml";
 
     private static Configuration instance;
-    private WordReceivers wordReceivers;
-    private DimensionsReceivers dimensionsReceivers;
-    private StrictReceivers strictReceiver;
-    private Prints printReceiver;
+    private DocumentReceiverWord wordReceivers;
+    private DocumentReceiverDimensions dimensionsReceivers;
+    private DocumentReceiverStrict strictReceiver;
+    private DocumentReceiverOrientation orientationReceiver;
+    private DocumentSystemPrint printReceiver;
+
+    private DocumentSystemLog logSystem;
 
     private Configuration(File file) throws ConfigurationException {
         Document document = read(file);
         if(document == null)
             throw new ConfigurationException("Cannot set default settings, check provided file");
 
-        this.wordReceivers = WordReceivers.getInstance(document);
-        this.dimensionsReceivers = DimensionsReceivers.getInstance(document);
-        this.strictReceiver = StrictReceivers.getInstance(document);
-        this.printReceiver = Prints.getInstance(document);
+        this.wordReceivers = DocumentReceiverWord.getInstance(document);
+        this.dimensionsReceivers = DocumentReceiverDimensions.getInstance(document);
+        this.strictReceiver = DocumentReceiverStrict.getInstance(document);
+        this.orientationReceiver = DocumentReceiverOrientation.getInstance(document);
+
+        this.printReceiver = DocumentSystemPrint.getInstance(document);
+        this.logSystem = DocumentSystemLog.getInstance(document);
     }
 
     public static void initialize() throws ConfigurationException {
@@ -119,17 +124,25 @@ public class Configuration {
         return instance.strictReceiver.getInstances();
     }
 
-    public static IPrint getPrinterInstance() throws ConfigurationException {
-        IPrint[] receivers = getPrinterInstances();
+    public static IOrientationReceiver getOrientationInstance() throws ConfigurationException {
+        IOrientationReceiver[] receivers = getOrientationInstances();
         if(receivers != null && receivers.length != 0)
             return receivers[0];
         return null;
     }
 
-    public static IPrint[] getPrinterInstances() throws ConfigurationException {
+    public static IOrientationReceiver[] getOrientationInstances() throws ConfigurationException {
         if(instance == null)
             initialize();
-        return instance.printReceiver.getInstances();
+        return instance.orientationReceiver.getInstances();
+    }
+
+    public static ILog getLogInstance() throws ConfigurationException {
+        return instance.logSystem.getModuleInstance();
+    }
+
+    public static IPrint getPrinterInstance() throws ConfigurationException {
+        return instance.printReceiver.getModuleInstance();
     }
 
     private boolean isDefaultConfigFile(File file) {

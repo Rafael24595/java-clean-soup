@@ -1,10 +1,13 @@
 package core.java.entities;
 
+import core.java.dependency.DependencyContainer;
 import core.java.entities.character.WordCharacter;
-import core.java.print.IPrint;
-import core.java.receiver.dimensions.instance.IDimensionsReceiver;
-import core.java.receiver.strict.instance.IStrictReceiver;
-import core.java.receiver.word.instance.IWordReceiver;
+import core.java.log.Log;
+import core.java.module.log.interfaces.ILog;
+import core.java.module.print.interfaces.IPrint;
+import core.java.module.receiver.dimensions.interfaces.IDimensionsReceiver;
+import core.java.module.receiver.strict.interfaces.IStrictReceiver;
+import core.java.module.receiver.word.interfaces.IWordReceiver;
 
 import java.util.HashMap;
 
@@ -109,7 +112,7 @@ public class Panel {
         }catch (Exception e){
             if (strict)
                 throw e;
-            System.err.println(e.getMessage());
+            Log.log(e.getMessage());
         }
     }
 

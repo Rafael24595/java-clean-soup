@@ -18,6 +18,8 @@ public class XmlTools {
     private static final String DISABLED = "disabled";
 
     public static boolean getElementStatus(Element element) {
+        if(element == null)
+            return false;
         String status = element.getAttribute(STATUS);
         return status.equals(ENABLED) || !status.equals(DISABLED);
     }

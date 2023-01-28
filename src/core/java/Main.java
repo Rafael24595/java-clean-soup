@@ -1,14 +1,16 @@
 package core.java;
 
 import core.java.entities.Panel;
+import core.java.module.log.interfaces.ILog;
+import core.java.module.receiver.orientation.interfaces.IOrientationReceiver;
 import core.java.tools.Tools;
 import io.configuration.Configuration;
 import io.configuration.exception.ConfigurationException;
 import core.java.dependency.DependencyContainer;
-import core.java.print.IPrint;
-import core.java.receiver.dimensions.instance.IDimensionsReceiver;
-import core.java.receiver.strict.instance.IStrictReceiver;
-import core.java.receiver.word.instance.IWordReceiver;
+import core.java.module.print.interfaces.IPrint;
+import core.java.module.receiver.dimensions.interfaces.IDimensionsReceiver;
+import core.java.module.receiver.strict.interfaces.IStrictReceiver;
+import core.java.module.receiver.word.interfaces.IWordReceiver;
 
 public class Main {
 
@@ -28,10 +30,14 @@ public class Main {
     }
 
     private static void loadGlobalDependencies() throws ConfigurationException {
+        ILog systemLog = Configuration.getLogInstance();
         IStrictReceiver strictReceiver = Configuration.getStrictReceiverInstance();
+        IOrientationReceiver orientationReceiver = Configuration.getOrientationInstance();
         IPrint print = Configuration.getPrinterInstance();
 
+        DependencyContainer.addInstance(ILog.class, systemLog);
         DependencyContainer.addInstance(IStrictReceiver.class, strictReceiver);
+        DependencyContainer.addInstance(IOrientationReceiver.class, orientationReceiver);
         DependencyContainer.addInstance(IPrint.class, print);
     }
 
