@@ -9,15 +9,15 @@ public class DocumentSystemPrint extends AbstractDocumentSystem {
 
     private DocumentSystemPrint(Document document) throws ConfigurationException {
         super(document);
-        buildWordReceivers();
+        buildPrinterSystem();
     }
 
     public static DocumentSystemPrint getInstance(Document document) throws ConfigurationException {
         return new DocumentSystemPrint(document);
     }
 
-    private void buildWordReceivers() throws ConfigurationException {
-        buildModule(EntitySystemPrint.class, EntitySystemPrint.PRINT_RECEIVER);
+    private void buildPrinterSystem() throws ConfigurationException {
+        buildModule(EntitySystemPrint.class, EntitySystemPrint.PRINTER_SYSTEM);
     }
 
     public IPrint getModuleInstance() throws ConfigurationException {

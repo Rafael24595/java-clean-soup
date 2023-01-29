@@ -23,12 +23,13 @@ public class Configuration {
     private static final String DEFAULT_PATH_CONFIG = "src/io/configuration/resources/Configuration.xml";
 
     private static Configuration instance;
+
     private DocumentReceiverWord wordReceivers;
     private DocumentReceiverDimensions dimensionsReceivers;
     private DocumentReceiverStrict strictReceiver;
     private DocumentReceiverOrientation orientationReceiver;
-    private DocumentSystemPrint printReceiver;
 
+    private DocumentSystemPrint printSystem;
     private DocumentSystemLog logSystem;
 
     private Configuration(File file) throws ConfigurationException {
@@ -41,7 +42,7 @@ public class Configuration {
         this.strictReceiver = DocumentReceiverStrict.getInstance(document);
         this.orientationReceiver = DocumentReceiverOrientation.getInstance(document);
 
-        this.printReceiver = DocumentSystemPrint.getInstance(document);
+        this.printSystem = DocumentSystemPrint.getInstance(document);
         this.logSystem = DocumentSystemLog.getInstance(document);
     }
 
@@ -142,7 +143,7 @@ public class Configuration {
     }
 
     public static IPrint getPrinterInstance() throws ConfigurationException {
-        return instance.printReceiver.getModuleInstance();
+        return instance.printSystem.getModuleInstance();
     }
 
     private boolean isDefaultConfigFile(File file) {

@@ -6,6 +6,12 @@
             <parameters>
             </parameters>
         </log>
+        <printer>
+            <name>ConsolePrinter</name>
+            <class>core.java.module.print.ConsolePrinter</class>
+            <parameters>
+            </parameters>
+        </printer>
     </system>
     <input>
         <receivers>

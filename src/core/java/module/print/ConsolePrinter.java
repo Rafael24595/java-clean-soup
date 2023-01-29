@@ -3,7 +3,7 @@ package core.java.module.print;
 import core.java.entities.Panel;
 import core.java.module.print.interfaces.IPrint;
 
-public class ConsolePrint implements IPrint {
+public class ConsolePrinter implements IPrint {
 
     @Override
     public void print(Panel panel) {
