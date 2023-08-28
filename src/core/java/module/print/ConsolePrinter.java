@@ -6,9 +6,10 @@ import core.java.module.print.interfaces.IPrint;
 public class ConsolePrinter implements IPrint {
 
     @Override
-    public void print(Panel panel) {
+    public String print(Panel panel) {
         printPanel(panel);
         printWordList(panel);
+        return "";
     }
 
     private void printPanel(Panel panel) {

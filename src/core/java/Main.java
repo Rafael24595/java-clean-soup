@@ -12,21 +12,32 @@ import core.java.module.receiver.dimensions.interfaces.IDimensionsReceiver;
 import core.java.module.receiver.strict.interfaces.IStrictReceiver;
 import core.java.module.receiver.word.interfaces.IWordReceiver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    private Main() {
+        //
+    }
+
+    public static String[] main(String[] args) throws Exception {
         loadAppConfiguration(args);
         loadGlobalDependencies();
 
+        List<String> soups = new ArrayList<>();
+
         for (int i = 0; i < Configuration.wordReceiverLength(); i++) {
             loadInstanceDependencies(i);
-            launch();
+            soups.add(launch());
         }
+
+        return soups.toArray(new String[0]);
     }
 
     private static void loadAppConfiguration(String[] args) throws ConfigurationException {
         Arguments.initialize(args);
-        Configuration.initialize(Arguments.customConfigurationFile());
+        Configuration.initialize(Arguments.customDocument());
     }
 
     private static void loadGlobalDependencies() throws ConfigurationException {
@@ -52,14 +63,14 @@ public class Main {
         DependencyContainer.addInstance(IWordReceiver.class, wordReceiver);
     }
 
-    private static void launch() throws Exception {
+    private static String launch() throws Exception {
         IDimensionsReceiver dimensionsReceiver = DependencyContainer.getInstance(IDimensionsReceiver.class);
         IWordReceiver wordsReceiver = DependencyContainer.getInstance(IWordReceiver.class);
         IPrint printer = DependencyContainer.getInstance(IPrint.class);
         IStrictReceiver strictReceiver = DependencyContainer.getInstance(IStrictReceiver.class);
 
         Panel panel = new Panel(dimensionsReceiver, wordsReceiver, strictReceiver);
-        panel.print(printer);
+        return panel.print(printer);
     }
 
 }

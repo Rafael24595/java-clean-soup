@@ -7,6 +7,6 @@ import core.java.module.print.ConsolePrinter;
 public interface IPrint extends IModule {
 
     Class<ConsolePrinter> def_instance = ConsolePrinter.class;
-    void print(Panel panel);
+    String print(Panel panel);
 
 }

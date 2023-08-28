@@ -1,9 +1,7 @@
 package core.java.entities;
 
-import core.java.dependency.DependencyContainer;
 import core.java.entities.character.WordCharacter;
 import core.java.log.Log;
-import core.java.module.log.interfaces.ILog;
 import core.java.module.print.interfaces.IPrint;
 import core.java.module.receiver.dimensions.interfaces.IDimensionsReceiver;
 import core.java.module.receiver.strict.interfaces.IStrictReceiver;
@@ -51,6 +49,14 @@ public class Panel {
 
     public String[] getWords() {
         return words.keySet().toArray(new String[0]);
+    }
+
+    public Word[] getSoupWords() {
+        return words.values().toArray(new Word[0]);
+    }
+
+    public Character[][] getTable() {
+        return table;
     }
 
     protected void printWord(String key) {
@@ -137,8 +143,8 @@ public class Panel {
         return this.wordsReceiver.getRandomCharacter();
     }
 
-    public void print(IPrint printer) {
-        printer.print(this);
+    public String print(IPrint printer) {
+        return printer.print(this);
     }
 
 }

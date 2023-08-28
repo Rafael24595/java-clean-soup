@@ -8,19 +8,10 @@ import core.java.module.receiver.strict.interfaces.IStrictReceiver;
 import core.java.module.receiver.word.interfaces.IWordReceiver;
 import io.configuration.entities.receiver.*;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import io.configuration.exception.ConfigurationException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-
 public class Configuration {
-
-    private static final String DEFAULT_PATH_CONFIG = "src/io/configuration/resources/Configuration.xml";
 
     private static Configuration instance;
 
@@ -32,8 +23,7 @@ public class Configuration {
     private DocumentSystemPrint printSystem;
     private DocumentSystemLog logSystem;
 
-    private Configuration(File file) throws ConfigurationException {
-        Document document = read(file);
+    private Configuration(Document document) throws ConfigurationException {
         if(document == null)
             throw new ConfigurationException("Cannot set default settings, check provided file");
 
@@ -47,43 +37,12 @@ public class Configuration {
     }
 
     public static void initialize() throws ConfigurationException {
-        initialize(null);
+        initialize((Document) null);
     }
 
-    public static void initialize(File file) throws ConfigurationException {
+    public static void initialize(Document document) throws ConfigurationException {
         if(instance == null)
-            instance = new Configuration(file);
-    }
-
-    private Document read(String path) throws ConfigurationException {
-        File file = new File(path);
-        try {
-            return read(file);
-        } catch (ConfigurationException e) {
-            throw new ConfigurationException(e);
-        }
-    }
-
-    private Document read(File filePro) throws ConfigurationException {
-        if(filePro != null && filePro.exists()){
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder;
-            try {
-                dBuilder = dbFactory.newDocumentBuilder();
-
-                Document doc = dBuilder.parse(filePro);
-                doc.getDocumentElement().normalize();
-                return doc;
-
-            } catch (ParserConfigurationException e) {
-                throw new ConfigurationException(e);
-            } catch (SAXException | IOException e){
-                if(isDefaultConfigFile(filePro))
-                    return null;
-            }
-        }
-
-        return read(DEFAULT_PATH_CONFIG);
+            instance = new Configuration(document);
     }
 
     public static IWordReceiver getWordReceiverInstance() throws ConfigurationException {
@@ -144,12 +103,6 @@ public class Configuration {
 
     public static IPrint getPrinterInstance() throws ConfigurationException {
         return instance.printSystem.getModuleInstance();
-    }
-
-    private boolean isDefaultConfigFile(File file) {
-        String fileDef = new File(DEFAULT_PATH_CONFIG).getAbsolutePath();
-        String filePro = file.getAbsolutePath();
-        return fileDef.equals(filePro);
     }
 
     public static int wordReceiverLength() throws ConfigurationException {

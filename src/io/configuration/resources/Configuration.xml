@@ -7,8 +7,8 @@
             </parameters>
         </log>
         <printer>
-            <name>ConsolePrinter</name>
-            <class>core.java.module.print.ConsolePrinter</class>
+            <name>ParserPrinter</name>
+            <class>core.java.module.print.ParserPrinter</class>
             <parameters>
             </parameters>
         </printer>

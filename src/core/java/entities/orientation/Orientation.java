@@ -50,6 +50,10 @@ public class Orientation {
         return getVerticalMultiplier() != MULTIPLIER_NULL ? word.length() : 1;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public int getHorizontalMultiplier() throws SoupException {
         switch (code) {
             case DIAGONAL_SOUTH_WEST:
