@@ -65,7 +65,7 @@ class Parameter extends AbstractEntity implements IParameter {
         String type = getType();
         switch (type) {
             case Type.BOOLEAN:
-                return null;
+                return getBoolean(VALUE);
             case Type.INTEGER:
                 return getInt(VALUE);
             case Type.INTEGER_ARRAY:

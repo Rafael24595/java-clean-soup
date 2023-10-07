@@ -44,6 +44,9 @@ public class DefaultWordReceiver implements IWordReceiver {
 
         int multiplier = (dimensions.getHeight() * dimensions.getWidth()) / (DEFAULT_HEIGHT * DEFAULT_WIDTH);
 
+        if(multiplier == 0)
+            multiplier = 1;
+
         return DEFAULT_LIST_SIZE * multiplier;
     }
 

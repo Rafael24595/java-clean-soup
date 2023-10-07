@@ -63,6 +63,11 @@ public class AbstractEntity {
         return exists(field) && !value.isEmpty() ? Integer.parseInt(value) : 0;
     }
 
+    protected boolean getBoolean(String field){
+        String value = getString(field);
+        return exists(field) && !value.isEmpty() ? Boolean.parseBoolean(value) : false;
+    }
+
     protected void set(String field, int value) {
         this.container.put(field, value);
     }
