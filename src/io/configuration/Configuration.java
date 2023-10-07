@@ -41,8 +41,7 @@ public class Configuration {
     }
 
     public static void initialize(Document document) throws ConfigurationException {
-        if(instance == null)
-            instance = new Configuration(document);
+        instance = new Configuration(document);
     }
 
     public static IWordReceiver getWordReceiverInstance() throws ConfigurationException {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class SoupController {
 
-    @PostMapping("/build")
+    @PostMapping("/api/1/soup-panel")
     public String build(@RequestBody String xml) throws Exception {
         String[] panels = Main.main(new String[]{xml});
         return "[" + String.join("," , panels) + "]";

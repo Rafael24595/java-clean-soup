@@ -83,7 +83,7 @@ public class XmlTools {
         return aList;
     }
 
-    private static Element getNodeElement(Node node ) {
+    private static Element getNodeElement(Node node) {
         if(node != null && node.getNodeType() == Node.ELEMENT_NODE){
             return (Element) node;
         }

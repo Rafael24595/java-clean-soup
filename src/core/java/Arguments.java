@@ -25,8 +25,7 @@ class Arguments {
     }
 
     static void initialize(String[] args) {
-        if(instance == null)
-            instance = new Arguments(args);
+        instance = new Arguments(args);
     }
 
     static Document customDocument() throws ConfigurationException {
