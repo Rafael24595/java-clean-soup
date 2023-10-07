@@ -176,6 +176,26 @@
                 <name>IWordReceiver</name>
                 <dependencies>
                     <dependency status="disabled">
+                        <name>RustDictionaryWordReceiver</name>
+                        <class>core.java.module.receiver.word.RustDictionaryWordReceiver</class>
+                        <order>1</order>
+                        <quantity>1</quantity>
+                        <parameters>
+                            <parameter>
+                                <name>Dynamic</name>
+                                <type>BOOLEAN</type>
+                                <order>1</order>
+                                <value>true</value>
+                            </parameter>
+                            <parameter>
+                                <name>Domain</name>
+                                <type>STRING</type>
+                                <order>2</order>
+                                <value></value>
+                            </parameter>
+                        </parameters>
+                    </dependency>
+                    <dependency status="disabled">
                         <name>RAEWordReceiver</name>
                         <class>core.java.module.receiver.word.RAEWordReceiver</class>
                         <order>1</order>
